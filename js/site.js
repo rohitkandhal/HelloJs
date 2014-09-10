@@ -1,6 +1,25 @@
-var intAsString = "123";
-var intValue = Number(intAsString);		// intValue is of type Number
-alert("Original: " + typeof intAsString + " \nUpdated type: " + typeof intValue);
+var person = {
+	name: "Rohit",
 
-var obj = new Number(intAsString);	// obj is of type Object
-alert("Original: " + typeof intAsString + " \nUpdated type: " + typeof obj);
+	_company: "OSI",
+	getName: function(){
+		return alert(this.name);
+	}
+}
+
+Object.defineProperty(person, "org", {
+	get: function(){
+		return this._company;
+	},
+
+	set: function(newValue) {
+			this._company = newValue;
+		}
+	}
+});
+
+alert("name: " + person.name + "\norg: " + person.org);
+
+person.org = "nagarro";
+
+alert("name: " + person.name + "\norg: " + person.org);
