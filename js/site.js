@@ -1,25 +1,39 @@
-var person = {
-	name: "Rohit",
+var company = {};
 
-	_company: "OSI",
-	getName: function(){
-		return alert(this.name);
-	}
-}
-
-Object.defineProperty(person, "org", {
-	get: function(){
-		return this._company;
+Object.defineProperties(company, {
+	_name : {
+		// Note that if you don't make it writable specifically then it would be read only
+		writable: true,
+		value: "Oil Systems Inc"
 	},
 
-	set: function(newValue) {
-			this._company = newValue;
+	name: {
+		configurable: true,
+		get: function(){
+			return this._name;
 		}
 	}
 });
 
-alert("name: " + person.name + "\norg: " + person.org);
+/*
+Defined 
+	1 Data Properties: _name
+	1 Accessor Properties: name (with getter only)
+*/
 
-person.org = "nagarro";
+alert(company.name);	// "Oil Systems Inc"
 
-alert("name: " + person.name + "\norg: " + person.org);
+// try to change the property. It shouldn't change
+company.name = "nagarro";
+alert(company.name);	// "Oil SYstems Inc"
+
+// Add/update name property with setter
+Object.defineProperty(company, "name", {
+	set: function(newValue){
+		this._name = newValue;
+	}
+});
+
+// Now try to update it.
+company.name = "nagarro";
+alert(company.name);	// "nagarro"
