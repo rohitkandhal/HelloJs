@@ -24,16 +24,10 @@ function SubType(){
 
 SubType.prototype = new SuperType();
 
-SubType.prototype = {
-	valueOf: function() {
-		return "Sub Type custom value of";
-	}
-};
-
 SubType.prototype.getSubValue = function(){
 	return this.subProperty;
 };
 
 var subtypeInstance = new SubType();
 
-alert(subtypeInstance.valueOf());
+alert(subtypeInstance instanceof SuperType);
