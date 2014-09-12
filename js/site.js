@@ -1,22 +1,14 @@
-//Constructor - Global Scope
-function Company(name, year){
-	this.name = name;
-	this._year = year;
-
-	Object.defineProperties(this, {
-		year: {
-			get: function(){
-				return this._year;
-			},
-			set: function(newValue){
-				if(Number(newValue)){				
-					this._year = newValue;
-				}
-			}
-		}
-	});
+// Prototype pattern
+function Company(){
+	this.temp = "xyz";	// Remember to use this otherwise constructor won't know where to define the property.
 }
 
-var myCompany = new Company("My Company", 056 );
+Company.prototype.name = "";
+Company.prototype.year = "1980";
 
-alert(myCompany.name + ", " + myCompany.year);	// Output: My Company, 46
+Company.prototype.sayYear = function(){
+	return this.year + 10;
+};
+
+var company1 = new Company();
+alert(company1.temp);
