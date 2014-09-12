@@ -8,6 +8,10 @@ function SuperType(){
 SuperType.prototype = {
 	property: "Super Prototype property",
 
+	valueOf: function() {
+		return "this is custom value of";
+	},
+
 	getSuperValue: function() {
 		return this.property;
 	}
@@ -15,16 +19,21 @@ SuperType.prototype = {
 
 // Sub class
 function SubType(){
-	this.subProperty = "sub-class";
-}
+	this.subProperty = "Sub Type Constructor";
+};
 
 SubType.prototype = new SuperType();
+
+SubType.prototype = {
+	valueOf: function() {
+		return "Sub Type custom value of";
+	}
+};
 
 SubType.prototype.getSubValue = function(){
 	return this.subProperty;
 };
 
-var superObject = new SuperType();
-// Even though .property is defined at both Constructor and Instance level
-// Always instance level property takes priority.
-alert(superObject.property);
+var subtypeInstance = new SubType();
+
+alert(subtypeInstance.valueOf());
