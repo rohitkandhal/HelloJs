@@ -1,33 +1,37 @@
-// Implementation Inheritance
-
-// Super Class
-function SuperType(){
-	this.property = "Super Constructor property";
+// Combination Inheritance
+function SuperType(firstName){
+	this.name = firstName;
+	this.coffee = ["Black", "Mocha", "Latte"];
 }
 
+
 SuperType.prototype = {
-	property: "Super Prototype property",
+	price: "50",
 
-	valueOf: function() {
-		return "this is custom value of";
-	},
-
-	getSuperValue: function() {
-		return this.property;
+	sayPrice: function(){
+		alert(this.price);
 	}
 };
 
-// Sub class
-function SubType(){
-	this.subProperty = "Sub Type Constructor";
-};
+function SubType(name){
+	SuperType.call(this,name);
+
+	this.subCat = "Sub Category";
+}
 
 SubType.prototype = new SuperType();
 
-SubType.prototype.getSubValue = function(){
-	return this.subProperty;
+SubType.prototype.saySubCat = function(){
+	alert(this.subCat);
 };
 
-var subtypeInstance = new SubType();
+var instance1 = new SubType("Rohit");
+instance1.coffee.push("Tea");
+alert(instance1.coffee);
+instance1.sayPrice();
+instance1.saySubCat();
 
-alert(subtypeInstance instanceof SuperType);
+var instance2 = new SubType("Preeti");
+alert(instance2.coffee);
+instance2.sayPrice();
+instance2.saySubCat();
