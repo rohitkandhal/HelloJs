@@ -1,14 +1,30 @@
-// Prototype pattern
-function Company(){
-	this.temp = "xyz";	// Remember to use this otherwise constructor won't know where to define the property.
+// Implementation Inheritance
+
+// Super Class
+function SuperType(){
+	this.property = "Super Constructor property";
 }
 
-Company.prototype.name = "";
-Company.prototype.year = "1980";
+SuperType.prototype = {
+	property: "Super Prototype property",
 
-Company.prototype.sayYear = function(){
-	return this.year + 10;
+	getSuperValue: function() {
+		return this.property;
+	}
 };
 
-var company1 = new Company();
-alert(company1.temp);
+// Sub class
+function SubType(){
+	this.subProperty = "sub-class";
+}
+
+SubType.prototype = new SuperType();
+
+SubType.prototype.getSubValue = function(){
+	return this.subProperty;
+};
+
+var superObject = new SuperType();
+// Even though .property is defined at both Constructor and Instance level
+// Always instance level property takes priority.
+alert(superObject.property);
