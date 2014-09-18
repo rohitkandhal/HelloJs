@@ -1,37 +1,42 @@
-// Combination Inheritance
-function SuperType(firstName){
-	this.name = firstName;
-	this.coffee = ["Black", "Mocha", "Latte"];
-}
+// Closures and Variables
+function createFunction(){
+	var result = new Array();
 
-
-SuperType.prototype = {
-	price: "50",
-
-	sayPrice: function(){
-		alert(this.price);
+	for( var i=0; i<10; i++) {
+		// Create new function which returns the current index
+		result[i] = function() {
+			return i;
+		};
 	}
+
+	// return an array of functions
+	return result;
 };
 
-function SubType(name){
-	SuperType.call(this,name);
+// Get 10 functions
+var funArray = createFunction();
 
-	this.subCat = "Sub Category";
+// NOTE: Though we are calling first function it should be 0 instead it's the last value
+alert("Closures without scope fixed: " + funArray[0]());	// Ouput: 10
+
+
+// FIX:
+function createNewFunction(){
+	var result = new Array();
+
+	for(var i =0 ; i<10; i++){
+		result[i] = function(num) {
+			return function() {
+				return num;
+			};
+		}(i);
+	}
+
+	return result;
 }
 
-SubType.prototype = new SuperType();
+var newFunArray = createNewFunction();
 
-SubType.prototype.saySubCat = function(){
-	alert(this.subCat);
-};
+// newFunArray is an array of function definitions.
+alert("Closures with scope fixed: " + newFunArray[1]());	// Output: 1
 
-var instance1 = new SubType("Rohit");
-instance1.coffee.push("Tea");
-alert(instance1.coffee);
-instance1.sayPrice();
-instance1.saySubCat();
-
-var instance2 = new SubType("Preeti");
-alert(instance2.coffee);
-instance2.sayPrice();
-instance2.saySubCat();
