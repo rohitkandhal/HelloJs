@@ -1,42 +1,37 @@
-// Closures and Variables
-function createFunction(){
-	var result = new Array();
+var inpArr = [{id: 1, foo: [{a: "dog", b: "cat"}]},
+				{id: 2, foo: [{a: "kutta", b: "billi"}]}];
 
-	for( var i=0; i<10; i++) {
-		// Create new function which returns the current index
-		result[i] = function() {
-			return i;
-		};
-	}
 
-	// return an array of functions
-	return result;
+var myFilter = function(val, item, index, array){
+	
+	var searchResult = scanProperties(item, val);
+	return searchResult;
 };
 
-// Get 10 functions
-var funArray = createFunction();
 
-// NOTE: Though we are calling first function it should be 0 instead it's the last value
-alert("Closures without scope fixed: " + funArray[0]());	// Ouput: 10
+// Note:pass additional argument to default filter.
+// using Function.Prototype.Bind
+var filterResult = inpArr.filter(myFilter.bind(null, "dog"));
+
+alert(filterResult);
 
 
-// FIX:
-function createNewFunction(){
-	var result = new Array();
+// Recursively scan all properties
+function scanProperties(obj, val){
 
-	for(var i =0 ; i<10; i++){
-		result[i] = function(num) {
-			return function() {
-				return num;
-			};
-		}(i);
+	var result = false;
+	for(var property in obj){
+		if(obj.hasOwnProperty(property) && obj[property] != null) {
+			if(obj[property].constructor == Object) {
+				result = result || scanProperties(obj[property], val);
+			} else if( obj[property].constructor == Array){
+				for (var i = 0; i < obj[property].length; i++){
+					result = result || scanProperties(obj[property][i], val);
+				}
+			} else {
+				result = result || (obj[property] == val);
+			}
+		}
 	}
-
 	return result;
-}
-
-var newFunArray = createNewFunction();
-
-// newFunArray is an array of function definitions.
-alert("Closures with scope fixed: " + newFunArray[1]());	// Output: 1
-
+};
