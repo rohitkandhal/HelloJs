@@ -27,6 +27,22 @@ var EventUtil = {
 		}
 	},
 
+	getEvent: function(event){
+		return event ? event : window.event;
+	},
+
+	getTarget: function(event){
+		return event.target || event.srcElement;
+	},
+
+	preventDefault: function(event){
+		if(event.preventDefault){
+			event.preventDefault();
+		} else {
+			event.returnValue = false;
+		}
+	},
+
 	removeHandler: function(element, type, handler){
 		if(element.removeEventListener){
 			element.removeEventListener(type, handler, false);
@@ -34,6 +50,16 @@ var EventUtil = {
 			element.removeHandler("on" + type, handler);
 		} else {
 			element["on" + type] = handler;
+		}
+	},
+
+	// NOTE: Cancel bubble for stopping propagation and return value for cancelling event altogether.
+	
+	stopPropagation: function (event) {
+		if(event.stopPropagation){
+			event.stopPropagation();
+		} else {
+			event.cancelBubble = true;
 		}
 	}
 };
