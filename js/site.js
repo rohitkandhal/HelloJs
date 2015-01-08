@@ -1,14 +1,17 @@
-var range1 = document.createRange(),
-    range2 = document.createRange();
+var name = 'rk',
+	obj = {
+		name: 'asit',
+		whoIam: function() {
+			var name = 'karan';
 
-var p1 = document.getElementById("p1");
-var helloNode = p1.firstChild.firstChild;
-var worldNode = p1.firstChild.nextSibling;
+			console.log(this.name);
 
-console.log(helloNode + ""  +worldNode);
+			setTimeout(function(){
+				console.log(this.name);
+			}, 100);
+		}
+	};
 
-range1.setStart(helloNode, 2);
-range1.setEnd(worldNode,3);
+obj.whoIam();
 
-console.log(range1);
-range1.deleteContents();
+// asit, rk
