@@ -1,14 +1,28 @@
 function addContextMenu(event){
 	var div = document.getElementById("testDiv");
 
+	function showContextMenu(){
+		var menu = document.getElementById("myMenu");
+			menu.style.left=  calcApropPosition(event.clientX, menu.clientWidth, "width") + "px";
+			menu.style.top = calcApropPosition(event.clientY, menu.clientHeight, "height") + "px";
+			menu.style.visibility = "visible";
+	}
+
+	function hideContextMenu() {
+		var menu = document.getElementById("myMenu");
+		if(menu){
+			menu.style.visibility = "hidden";
+		}
+	}
+
 	EventUtil.addHandler(window, "contextmenu", function(event){
 		event = EventUtil.getEvent(event);
 		EventUtil.preventDefault(event);
+		showContextMenu();	
+	});
 
-		var menu = document.getElementById("myMenu");
-		menu.style.left=  calcApropPosition(event.clientX, menu.clientWidth, "width") + "px";
-		menu.style.top = calcApropPosition(event.clientY, menu.clientHeight, "height") + "px";
-		menu.style.visibility = "visible";
+	EventUtil.addHandler(window, "click", function(event){
+	
 	});
 }
 
@@ -30,6 +44,7 @@ function calcApropPosition(currPos, menuSize, orient){
 
 	return finalPos;
 }
+
 
 // Get client browser width
 function getWidth() {
