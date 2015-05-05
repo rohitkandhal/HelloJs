@@ -1,5 +1,4 @@
 ##Hello JS  
-####Learning Java Script - A magic language####
 
 1. For Objects, Classes and Prototypes, see [classbasics.js](js/classbasics.js)
 2. There is no restriction on number of arguments being passed. _e.g. You can declare a function with no arguments but still you can send as many arguments you like. Arguments are accessible via **arguments** object._
