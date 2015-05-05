@@ -1,11 +1,9 @@
-Hello Js
+Hello JS
 =======
 
 Learning Java Script - A magic language
 
-####Good JS excerpts 
-
-1. **With** statements
+1. For Objects, Classes and Prototypes, see this file [classbasics.js](js/classbasics.js)
 2. There is no restriction on number of arguments being passed. _e.g. You can declare a function with no arguments but still you can send as many arguments you like. Arguments are accessible via **arguments** object._
 3. **No Overloading**: If two functions are defined to have the same name, it is the last function that becomes the owner of that name. Tip: Use arguments.length to support Method Overloading.
 4. Unlike other programming languages, **string** is a primitive data type instead of a reference data type. 
