@@ -1,3 +1,6 @@
+// OBJECTS CLASSES PROTOTYPES
+
+// Prototype should contain immutable data e.g. methods. Stateful data should be on instance level
 function User(name) {
     // new agnostic constructor
     if(!(this instanceof User)){
@@ -44,7 +47,7 @@ function Shape(x, y) {
 
 var d = Shape(3,3);
 
-// CLOSURES : A special object consisting of // a function // environment in which it was created
+// CLOSURES : A special object consisting of // a function & // environment in which it was created
 // a. Basic example
 function makeAdder(x) {
     return function(y){
@@ -81,7 +84,7 @@ var counter = (function() {
 
 counter.value();
 
-// b.1 Practical example in different way
+// c Practical example in different way
 var makeCounter = function() {
     // private variable
     var privateCounter = 0;
