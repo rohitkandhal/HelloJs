@@ -113,12 +113,36 @@ Object.defineProperty(
 );
 
 
+// 5. Use a for loop to iterate over an Array instead of for..in loop
+var prices = [10,20,30,40,50];
+var total = 0;
+
+for(var p in prices){
+    total += p;
+}
+// total = "001234"
+// WHY:
+// 1. An array is an object with keys as 1,2,3.. But these are strings not integer
+// 2. A for..in loop always enumerate the keys. Thus p will be "0", "1", "2", "3"...
+//      += operator will do string concatenation instead of addition
+
+var total = 0;
+for(var i = 0, n = prices.length; i < n; i++){
+    total += prices[i];
+}
+// total = 150
+
+// 6. Array.forEach loop is syntactic sugar of for loop.
+prices.forEach(function(p){
+   total += p; 
+});
 
 
-
-
-
-
+// 7. Array like objects can use Array.prototype methods
+var arrayLike = { 0: "a", 1: "b", 2:"c", length: 3};
+var result = Array.prototype.map.call(arrayLike, function(currentVal, index, array){
+    return currentVal.toUpperCase();
+})
 
 
 
