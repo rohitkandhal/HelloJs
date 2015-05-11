@@ -54,7 +54,7 @@ dict2.count();  // 3 though we've only 2 enteries
 function C(){}
 C.prototype = null; // DOESN'T WORK instead use Object.Create
 
-var x = Object.create(null);    // Object.create(prototype, properties object)
+var x = Object.create(null);    // Object.create(prototype, property descriptor map)
 
 // 3.2 To avoid prototype pollution, use hasOwnProperty
 var hasOwn = Object.prototype.hasOwnProperty;
@@ -87,6 +87,46 @@ Dict.prototype.get = function(key){
 
 // HasOwnProperty or Key checker
 Dict.prototype.has = function(key){
-    return {}.hasOwnProperty.call(this.elements, key);
+    var hasKeyFun = {}.hasOwnProperty;
+    return hasKeyFun.call(this.elements, key);
 }
+
+
+// 4. How to add properties to Object.prototype without prototype pollution
+//  using Object.defineProperty(obj, prop, descriptor)
+//  descriptor: configurable, enumerable, value (any valid JS value - number, object, function), writable, get, set
+Object.defineProperty(
+    Object.prototype, 
+    "allKeys",
+    {
+        configurable: true,
+        enumerable: false,  // hides from for..in
+        writable: true,
+        value: function() {
+            var result = [];
+            for(var key in this){
+                result.push(key);
+            }
+            return result;
+        }
+    }
+);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
