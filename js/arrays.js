@@ -144,7 +144,7 @@ var result = Array.prototype.map.call(arrayLike, function(currentVal, index, arr
     return currentVal.toUpperCase();
 })
 
-
+// Array concat function checks for [[class]] attribute. Thus works only on true array
 
 
 
