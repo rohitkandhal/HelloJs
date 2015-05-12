@@ -1,8 +1,8 @@
 ##Hello JS  
 
-1. For Objects, Classes and Prototypes. [classbasics.js](js/classbasics.js)
-2. For Arrays, Dictionaries. [arrays.js](js/arrays.js)
-3. For Function constructor and it's methods. [functions.js](js/functions.js)
+1. For Objects, Classes and Prototypes. [[classbasics.js](js/classbasics.js)]
+2. For Arrays and Dictionaries. [[arrays.js](js/arrays.js)]
+3. For Function constructor and it's methods. [[functions.js](js/functions.js)]
 4. Unlike other programming languages, **string** is a primitive data type instead of a reference data type. 
 5. Only _reference values_ can have properties defined dynamically for later use.
 6. Understanding reference arguments - _they are nothing more than local variables_: 
