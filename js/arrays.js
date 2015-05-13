@@ -146,8 +146,10 @@ var result = Array.prototype.map.call(arrayLike, function(currentVal, index, arr
 
 // Array concat function checks for [[class]] attribute. Thus works only on true array
 
-
-
+// 8. Array-like objects are structural typing or duck typing
+// To find if an object is an array use:
+//      a. Array.isArray: tests for true arrays
+//      b. x instanceof Array
 
 
 

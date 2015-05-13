@@ -1,21 +1,22 @@
 // OBJECTS CLASSES PROTOTYPES
 
-// Prototype should contain immutable data e.g. methods. Stateful data should be on instance level
+// 1.1 Prototype should contain immutable data e.g. methods. Stateful data should be on instance level
 function User(name) {
     // new agnostic constructor
     if(!(this instanceof User)){
-        return new User("Internal: " + name);
+        return new User("Default " + name);
     }
 
     this.name = name;
+    this.age = 0;
 }
 
 var a = new User("rohit");  // called as constructor
 var b = new User("karan");
 
-// Different ways to add to prototype
-// A. Don't use this as it causes object's brain transplant and 
-// compiler optimization doesn't work
+// 1.2 Different ways to add to prototype
+//  A. Don't use this as it causes object's brain transplant and 
+//      compiler optimization doesn't work
 a.__proto__.printHello = function() {
     return "Hello Printed";
 }
@@ -35,7 +36,47 @@ b.sayHello();   // "Hello Hello"
 var c = User("global");     // Called as function
 this.name; // Name added to global space
 
-// ** Additional object **
+
+// 2. METHOD CHAINING or FLUENT INTERFACE pattern
+// calling multiple functions on the same object consecutively
+User.prototype.setName = function(name) {
+    this.name = name;
+}
+
+User.prototype.setAge = function(age) {
+    this.age = age;
+}
+
+User.prototype.printDetails = function() {
+    console.log("User: " + this.name + " - " + this.age);
+}
+
+var u1 = new User();
+u1.setName("User 1");
+u1.setAge(25);
+u1.printDetails();
+
+// In order to support method chaining, we need to return the current object 
+// at the end of every function. That's why add return this
+User.prototype.setName = function(name) {
+    this.name = name;
+    return this;
+}
+
+User.prototype.setAge = function(age) {
+    this.age = age;
+    return this;
+}
+
+User.prototype.printDetails = function() {
+    console.log("User: " + this.name + " - " + this.age);
+    return this;
+}
+
+u1.setName("Fancy user").setAge(18).printDetails();
+
+
+// 3. Objects
 function Shape(x, y) {
     var self = this instanceof Shape ? this : Object.create(Shape.prototype);
     // Industry standard to Check for Undefined or null ONLY (x == null)
@@ -140,7 +181,6 @@ Scene.prototype.draw = function() {
         a[i].draw();
     }
 };
-
 
 function Actor(scene, x, y){
     this.scene = scene;
