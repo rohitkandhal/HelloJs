@@ -1,8 +1,12 @@
 var s_primitive = 'foo';    // String Literal
 var s_obj = new String(s_prim); // String Object
 
-var a = b = 3;
-// It's interpreted as b = 3; var a = b; b will be added to global space
+// 0. String Basics
+    var a = b = 3;
+    // It's interpreted as b = 3; var a = b; b will be added to global space
+
+    // Strings with same characters are considered same string. Even though they are immutable
+    'u' + 'se' + 'r' === "user" // true
 
 // 1. String to array conversion
 var str1 = "1,2";

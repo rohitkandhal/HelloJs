@@ -39,23 +39,6 @@ this.name; // Name added to global space
 
 // 2. METHOD CHAINING or FLUENT INTERFACE pattern
 // calling multiple functions on the same object consecutively
-User.prototype.setName = function(name) {
-    this.name = name;
-}
-
-User.prototype.setAge = function(age) {
-    this.age = age;
-}
-
-User.prototype.printDetails = function() {
-    console.log("User: " + this.name + " - " + this.age);
-}
-
-var u1 = new User();
-u1.setName("User 1");
-u1.setAge(25);
-u1.printDetails();
-
 // In order to support method chaining, we need to return the current object 
 // at the end of every function. That's why add return this
 User.prototype.setName = function(name) {
@@ -73,6 +56,7 @@ User.prototype.printDetails = function() {
     return this;
 }
 
+var u1 = new User();
 u1.setName("Fancy user").setAge(18).printDetails();
 
 
@@ -87,6 +71,10 @@ function Shape(x, y) {
 }
 
 var d = Shape(3,3);
+
+
+
+
 
 // CLOSURES : A special object consisting of // a function & // environment in which it was created
 // a. Basic example
@@ -152,6 +140,23 @@ var makeCounter = function() {
 // Both counter will work independently
 var counter1 = makeCounter();
 var counter2 = makeCounter();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 // INHERITANCE
