@@ -21,3 +21,7 @@ document.write(person.lastName);   // Output: Kandhal
 There is no restriction on number of arguments being passed. _e.g. You can declare a function with no arguments but still you can send as many arguments you like. Arguments are accessible via **arguments** object._
 
 **No Overloading**: If two functions are defined to have the same name, it is the last function that becomes the owner of that name. Tip: Use arguments.length to support Method Overloading.
+
+###Credits
+1. Effective Javascript
+2. [toptal](www.toptal.com)
