@@ -16,3 +16,18 @@ CSVReader.prototype.read = function(inp){
 
 var reader = new CSVReader();
 console.table(reader.read("a,b,c\nd,e,f\n"));
+
+// Miscellaneous Questions
+
+// 1. Objects as Hashtable but keys are always STRING
+var foo = new Object();
+var bar = new Object();
+var map = new Object();
+
+map[foo] = "foo";    // --> map["[Object object]"] = "foo";
+map[bar] = "bar";    // --> map["[Object object]"] = "bar";
+                     // second mapping REPLACES first mapping!
+
+alert(map[foo]);     // --> alert(map["[Object object]"]);
+                     // and since map["[Object object]"] = "bar",
+                     // this will alert "bar", not "foo"!!

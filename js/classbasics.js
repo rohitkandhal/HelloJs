@@ -233,3 +233,4 @@ SpaceShip.prototype.right = function() {
     var maxWidth = this.scene.width - this.width();
     this.moveTo(Math.min(this.x + 10, maxWidth), this.y);
 }
+
