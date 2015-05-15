@@ -31,3 +31,5 @@ map[bar] = "bar";    // --> map["[Object object]"] = "bar";
 alert(map[foo]);     // --> alert(map["[Object object]"]);
                      // and since map["[Object object]"] = "bar",
                      // this will alert "bar", not "foo"!!
+
+

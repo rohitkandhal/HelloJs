@@ -14,6 +14,21 @@ function isOdd(n)
    return isNumber(n) && (Math.abs(n) % 2 == 1);
 }
 
+// There are only 6 falsy values in Javascript
+// 1. Number 0, not '0' string
+// 2. Empty string ''
+// 3. Undefined
+// 4. null
+// 5. Number NaN
+// 6. false boolean, not 'false' string
+function isFalsy(inp) {
+	if(inp === 0 || inp === '' || inp === undefined 
+	||	inp === null || inp === false || inp === NaN) {
+		return true;
+	}
+	return false;
+}
+
 // Event addition, removing utility
 var EventUtil = {
 

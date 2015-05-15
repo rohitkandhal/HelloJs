@@ -1,5 +1,12 @@
 // OBJECTS CLASSES PROTOTYPES
 
+// 0. Basics
+// Object literal notation can't have this
+var obj = {
+    foo : "rohit",  // Correct
+    // this.foo : "rohit"   // ERROR: this. not allowed
+}
+
 // 1.1 Prototype should contain immutable data e.g. methods. Stateful data should be on instance level
 function User(name) {
     // new agnostic constructor
@@ -36,6 +43,11 @@ b.sayHello();   // "Hello Hello"
 var c = User("global");     // Called as function
 this.name; // Name added to global space
 
+// Error handling
+function UserException(message) {
+    this.name = "UserException";
+    this.message = message;
+}
 
 // 2. METHOD CHAINING or FLUENT INTERFACE pattern
 // calling multiple functions on the same object consecutively
