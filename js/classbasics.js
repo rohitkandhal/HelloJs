@@ -4,8 +4,14 @@
 // Object literal notation can't have this
 var obj = {
     foo : "rohit",  // Correct
-    // this.foo : "rohit"   // ERROR: this. not allowed
+    // this.foo : "rohit"   // ERROR: . is not allowed in name
 }
+
+// Objects are always passed as reference
+var a = {}, b = {}, c = {}; // a, b, c refer to 3 different empty objects
+var a = b = c = {}; // a, b, c refer to same empty object
+c.name = "rohit";
+b.name; // "rohit"  even though we did not add name property to object b
 
 // 1.1 Prototype should contain immutable data e.g. methods. Stateful data should be on instance level
 function Person(name, age, lastName) {
