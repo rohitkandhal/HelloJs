@@ -10,23 +10,22 @@ var obj = {
 // Objects are always passed as reference
 var a = {}, b = {}, c = {}; // a, b, c refer to 3 different empty objects
 var a = b = c = {}; // a, b, c refer to same empty object
-c.name = "rohit";
-b.name; // "rohit"  even though we did not add name property to object b
+c.foo = "rohit";
+b.foo; // "rohit"  even though we did not add "foo" property to object b
 
 // 1.1 Prototype should contain immutable data e.g. methods. Stateful data should be on instance level
 function Person(name, age, lastName) {
     // new agnostic constructor
     if(!(this instanceof Person)){
-        return new Person("Default " + name);
+        return new Person("de-inner " + name);
     }
 
-    this.name = name || "Dummy user";
+    this.name = name || "de-name";
     this.age = !!Number(age) ? Number(age) : 0;
-    this["last-name"] = lastName || "myLast";   // JS allows only _ for names, otherwise you need " " to define name
+    this["last-name"] = lastName || "de-last";   // JS allows only _ for names, otherwise you need " " to define name
 }
 
 var a = new Person("rohit");
-var b = new Person("karan");
 
 // 1.2 Different ways to add to prototype
 //  A. Don't use this as it causes object's brain transplant and 
@@ -35,26 +34,15 @@ a.__proto__.printHello = function() {
     return "Hello Printed";
 }
 
-a.printHello(); // "Hello Printed"
-b.printHello(); // "Hello Printed"
-
 // B. Suggested way to use prototype
-Person.prototype.sayHello = function() {
-    return "Hello Hello";
+Person.prototype.printDetails = function() {
+    console.log("Person: " + this.name + " - " + this.age);
+    return this;
 }
-
-a.sayHello();   // "Hello Hello"
-b.sayHello();   // "Hello Hello"
 
 // ** forget to add new **
 var c = Person("global");     // Called as function
 this.name; // Name added to global space
-
-// Error handling
-function PersonException(message) {
-    this.name = "PersonException";
-    this.message = message;
-}
 
 // 2. METHOD CHAINING or FLUENT INTERFACE pattern
 // calling multiple functions on the same object consecutively
@@ -70,13 +58,30 @@ Person.prototype.setAge = function(age) {
     return this;
 }
 
-Person.prototype.printDetails = function() {
-    console.log("Person: " + this.name + " - " + this.age);
-    return this;
-}
-
 var u1 = new Person();
 u1.setName("Fancy Person").setAge(18).printDetails();
+
+// Error handling
+function PersonException(message) {
+    this.name = "PersonException";
+    this.message = message;
+}
+
+
+// 3. Inheritance
+function Student(name) {
+    Person.call(this, name);    // Copy instance properties of Person class
+    this.title = "Student";
+}
+
+// Student.prototype = Person.prototype;   // Use this for inheriting just prototype properties
+// Student.prototype = new Person();   // Use this for inheriting both constructor and prototype properties
+
+// Best Way
+Student.prototype = Object.create(Person.prototype);
+
+
+
 
 
 // 3. Objects
