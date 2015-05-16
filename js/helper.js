@@ -1,7 +1,8 @@
 // ----------------------- Even Odd check ----------
 function isNumber(n)
 {
-   return n == parseFloat(n);
+   // return n == parseFloat(n);	//Wrong it won't capture "23@23" string
+   return !!Number(n);
 }
 
 function isEven(n) 

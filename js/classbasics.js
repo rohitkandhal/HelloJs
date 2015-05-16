@@ -8,18 +8,19 @@ var obj = {
 }
 
 // 1.1 Prototype should contain immutable data e.g. methods. Stateful data should be on instance level
-function User(name) {
+function Person(name, age, lastName) {
     // new agnostic constructor
-    if(!(this instanceof User)){
-        return new User("Default " + name);
+    if(!(this instanceof Person)){
+        return new Person("Default " + name);
     }
 
-    this.name = name;
-    this.age = 0;
+    this.name = name || "Dummy user";
+    this.age = !!Number(age) ? Number(age) : 0;
+    this["last-name"] = lastName || "myLast";   // JS allows only _ for names, otherwise you need " " to define name
 }
 
-var a = new User("rohit");  // called as constructor
-var b = new User("karan");
+var a = new Person("rohit");
+var b = new Person("karan");
 
 // 1.2 Different ways to add to prototype
 //  A. Don't use this as it causes object's brain transplant and 
@@ -32,7 +33,7 @@ a.printHello(); // "Hello Printed"
 b.printHello(); // "Hello Printed"
 
 // B. Suggested way to use prototype
-User.prototype.sayHello = function() {
+Person.prototype.sayHello = function() {
     return "Hello Hello";
 }
 
@@ -40,12 +41,12 @@ a.sayHello();   // "Hello Hello"
 b.sayHello();   // "Hello Hello"
 
 // ** forget to add new **
-var c = User("global");     // Called as function
+var c = Person("global");     // Called as function
 this.name; // Name added to global space
 
 // Error handling
-function UserException(message) {
-    this.name = "UserException";
+function PersonException(message) {
+    this.name = "PersonException";
     this.message = message;
 }
 
@@ -53,23 +54,23 @@ function UserException(message) {
 // calling multiple functions on the same object consecutively
 // In order to support method chaining, we need to return the current object 
 // at the end of every function. That's why add return this
-User.prototype.setName = function(name) {
+Person.prototype.setName = function(name) {
     this.name = name;
     return this;
 }
 
-User.prototype.setAge = function(age) {
+Person.prototype.setAge = function(age) {
     this.age = age;
     return this;
 }
 
-User.prototype.printDetails = function() {
-    console.log("User: " + this.name + " - " + this.age);
+Person.prototype.printDetails = function() {
+    console.log("Person: " + this.name + " - " + this.age);
     return this;
 }
 
-var u1 = new User();
-u1.setName("Fancy user").setAge(18).printDetails();
+var u1 = new Person();
+u1.setName("Fancy Person").setAge(18).printDetails();
 
 
 // 3. Objects
