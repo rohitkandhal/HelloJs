@@ -33,3 +33,19 @@ alert(map[foo]);     // --> alert(map["[Object object]"]);
                      // this will alert "bar", not "foo"!!
 
 
+// 2. Factorial
+function factorial(n){
+  if(n === 0 || n ===1 ){
+    return 1;
+  }
+  return n * factorial(n-1)
+}
+
+function factorial1(n) {
+  var result = 1;
+  for(var i = n; i > 0; i--){
+    result = i * result;
+  }
+  return result;
+}
+
