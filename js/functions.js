@@ -25,3 +25,39 @@ Food2.prototype = Object.create(Product.prototype);
 var f2 = new Food2("Paneer", 50);
 
 console.log(f1, f2);
+
+// 3. Function scope
+// Rule: JS have FUNCTION scope, not block scopes. Parameters and variables defined in a 
+// function are not visible outside of the function and a variable defined inside a 
+// funciton is visible everywhere within the function
+
+var foo = function () {
+    var a = 1, b = 2;
+
+    var bar = function() {
+        var b = 50, c = 60;
+
+        a = 100;
+        log("bar: ", a, b, c);
+    };
+
+    // a = 1, b = 2, c = undefined
+
+    bar();
+    
+    // a = 100, b = 2, c = undefined
+};
+
+foo();
+
+// Override console log
+// var origConsoleLog = console.log;
+
+// console.log = function () {
+//     var newArgs = [];
+//     for(var i = 0; i < arguments.length; i++) {
+//         newArgs.push(arguments[i] || 'undefined');
+//     }
+
+//     origConsoleLog.apply(null,newArgs);
+// }
