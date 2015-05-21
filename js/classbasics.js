@@ -81,7 +81,37 @@ function Student(name) {
 Student.prototype = Object.create(Person.prototype);
 
 
+// 4. Prototypical method vs Constructor method 
+// access to private variable
+function TestClass() {
+    var a = 0;  // private variable
 
+    TestClass.prototype.addAGlobal = function (x) {
+        a += x;
+    }
+
+    TestClass.prototype.getAGlobal = function () {
+        return a;
+    }
+
+    var b = 0;
+
+    this.addB = function(x) {
+        b += x;
+    }
+
+    this.getB = function() {
+        return b;
+    }
+}
+
+var t1 = new TestClass();
+var t2 = new TestClass();
+t1.addAGlobal(5);
+t2.getAGlobal();    // "5" both instances updated
+
+t1.addB(5);
+t2.getB();      // "0" as both instances have individual copy of methods
 
 
 // 3. Objects
