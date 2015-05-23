@@ -19,6 +19,11 @@ function trim(str) {
 	return str.replace(/^\s+|\s+$/g, "");
 }
 
+// Converts array like object (e.g. argument) to array
+function toArray(arrayLikeObj) {
+	return Array.prototype.slice.call(arrayLikeObj);
+}
+
 // There are only 6 falsy values in Javascript
 // 1. Number 0, not '0' string
 // 2. Empty string ''
