@@ -15,6 +15,11 @@ function isOdd(n)
    return isNumber(n) && (Math.abs(n) % 2 == 1);
 }
 
+// 23.99 -> 23
+function toInt(n) {
+	return Math.floor(n);
+}
+
 function trim(str) {
 	return str.replace(/^\s+|\s+$/g, "");
 }
