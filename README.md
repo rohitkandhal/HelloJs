@@ -8,8 +8,12 @@
 ###Algorithms implementation
 
 - Sorting
- 1. Insertion sort [[sorting.js](https://github.com/rohitkandhal/HelloJs/blob/master/js/algo/sorting.js#L7)]
- 2. Merge sort [[sorting.js](https://github.com/rohitkandhal/HelloJs/blob/master/js/algo/sorting.js#L26)]
+ 1. Insertion sort [[sorting.js](js/algo/sorting.js#L7)]
+ 2. Merge sort [[sorting.js](js/algo/sorting.js#L26)]
+
+###Questions
+1. Run length encoding [[source](js/algo/questions.js#L7)]
+2. Find two numbers which sum to a target number ([source](js/algo/questions.js#L33)]
 
 
 ###Credits
