@@ -15,6 +15,10 @@ function isOdd(n)
    return isNumber(n) && (Math.abs(n) % 2 == 1);
 }
 
+function isArray(inp) {
+	return Array.isArray(inp);
+}
+
 // 23.99 -> 23
 function toInt(n) {
 	return Math.floor(n);

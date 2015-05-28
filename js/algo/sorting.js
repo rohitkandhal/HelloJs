@@ -5,10 +5,10 @@ window.sort = window.sort || {};
     // Public interface
     ns.insertionSort = insertionSort;
     ns.mergeSort = mergeSort;
-
+    ns.heapSort = heapSort;
     // Internal
 
-    // Insertion Sort algo
+    // 1. Insertion Sort algo
     function insertionSort(arr) {
         var i, j, temp;
         for (i = 1; i < arr.length; i++) {
@@ -22,7 +22,7 @@ window.sort = window.sort || {};
         return arr;
     }
 
-    // Merge Sort
+    // 2. Merge Sort
     function mergeSort(inp, start, end) {
         var arr1 = arr2 = arr3 = [];
 
@@ -67,10 +67,53 @@ window.sort = window.sort || {};
         return result;
     }
 
+    // 3. Heap sort
+    function heapSort(inp) {
+        // Heap indexes start with 1
+        inp.unshift(0);
+        return heapify(inp, 2);
+    }
+
+    // Fixes heap
+    function heapify(arr, root) {
+        var left, right, largest;
+        
+        left = 2 * root;
+        right = 2 * root + 1;
+        
+        if (arr[left] && arr[left] > arr[root]) {
+            largest = left;
+        } else {
+            largest = root;
+        }
+        
+        if (arr[right] && arr[right] > arr[largest]) {
+            largest = right;
+        }
+        
+        if (largest !== root) {
+            swapArrItems(arr, largest, root);
+            return heapify(arr, largest)
+        }
+        return arr;
+    }
+    
+    function swapArrItems(arr, source, target) {
+        var temp;
+        if(arr[source] && arr[target]) {
+            temp = arr[source];
+            arr[source] = arr[target];
+            arr[target] = arr[source];
+        }
+        return swapArrItems;
+    }
+
 })(window.sort);
 
 
 var testArr = [5, 2, 4, 6, 1, 3];
+var testHeap = [16, 4, 10, 14, 7, 9, 3, 2, 8, 1];
 
 //window.sort.insertionSort(testArr);
-window.sort.mergeSort(testArr, 0, testArr.length);
+//window.sort.mergeSort(testArr, 0, testArr.length);
+window.sort.heapSort(testHeap);
