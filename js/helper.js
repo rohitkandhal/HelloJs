@@ -2,6 +2,7 @@
 function isNumber(n)
 {
    // return n == parseFloat(n);	//Wrong it won't capture "23@23" string
+   // return typeof n === 'number'	// Also good way without creating new variable
    return !!Number(n);
 }
 
