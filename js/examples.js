@@ -33,7 +33,7 @@ alert(map[foo]);     // --> alert(map["[Object object]"]);
                      // this will alert "bar", not "foo"!!
 
 
-// 2. Factorial
+// 2. Factorial 
 function factorial(n){
   if(n === 0 || n ===1 ){
     return 1;
@@ -48,6 +48,24 @@ function factorial1(n) {
   }
   return result;
 }
+
+// factorial with memoization
+var factorial2 = (function() {
+  var mem = [1, 1];
+
+  var fact = function(n) {
+    var result = mem[n];
+
+    if(typeof result !== 'number') {
+      result = n * fact(n-1);
+      mem[n] = result;
+    }
+
+    return result;
+  }
+
+  return fact;
+}());
 
 // 3. Fibonacci
 var count = 0;
