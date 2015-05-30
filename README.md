@@ -10,10 +10,14 @@
 - Sorting
  1. Insertion sort [[sorting.js](js/algo/sorting.js#L7)]
  2. Merge sort [[sorting.js](js/algo/sorting.js#L26)]
+ 3. Heap sort  
+ 3.1 Sorting Algo [[code](js/algo/sorting.js#L73)]  
+ 3.2 Build a heap [[code](js/algo/sorting.js#L88)]  
+ 3.3 Is an array a Heap [[code](js/algo/sorting.js#L126)]  
 
 ###Questions
-1. Run length encoding [[source](js/algo/questions.js#L7)]
-2. Find two numbers which sum to a target number ([source](js/algo/questions.js#L33)]
+1. Run length encoding [[code](js/algo/questions.js#L7)]
+2. Find two numbers which sum to a target number ([code](js/algo/questions.js#L33)]
 
 
 ###Credits
