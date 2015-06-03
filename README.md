@@ -15,9 +15,13 @@
  3.2 Build a heap [[code](js/algo/sorting.js#L88)]  
  3.3 Is an array a Heap [[code](js/algo/sorting.js#L126)]  
 
+###Data Structures
+- Binary Tree [code](js/algo/tree.js)
+ 1. Inorder traversal [code](js/algo/tree.js#29)
+  
 ###Questions
 1. Run length encoding [[code](js/algo/questions.js#L7)]
-2. Find two numbers which sum to a target number ([code](js/algo/questions.js#L33)]
+2. Find two numbers which sum to a target number [[code](js/algo/questions.js#L33)]
 
 
 ###Credits
