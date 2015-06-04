@@ -62,6 +62,7 @@ window.tree = window.tree || {};
         return out;
     }
     
+    // Binary Search iterative
     var searchIterative = function(root, key) {
         while (root != null && root.data !== key) {
             if (root.data > key) {
@@ -74,6 +75,28 @@ window.tree = window.tree || {};
         return root;
     }
     
+    var successor = function(node) {
+        if(node != null) {
+            var temp;
+
+            if(node.right != null) {
+                return treeMinimum(node.right);
+            }
+            temp = node.parent;
+            while(temp != null && temp.right === node) {
+                node = temp;
+                temp = temp.parent;
+            }
+            return temp;
+        }
+    }
+
+    var treeMinimum = function(node) {
+        while(node != null && node.left != null) {
+            node = node.left;
+        }
+        return node;
+    }
     
     var getTestTree = function() {
         var n2, n3, n4, n6, n7, n9, n13, n15, n17, n18, n20;
@@ -115,7 +138,8 @@ window.tree = window.tree || {};
     BST.prototype.inorderTraverse = inorderTraverse;
     BST.prototype.inorderTraverseIterative = inorderTraverseIterative;
     BST.prototype.searchIterative = searchIterative;
-
+    BST.prototype.successor = successor;
+    BST.prototype.treeMinimum = treeMinimum;
 }(window.tree))
 
 // test
@@ -123,4 +147,6 @@ var bst = new window.tree.BST();
 var testTree = bst.getTestTree();
 //bst.inorderTraverse(testTree);
 //bst.inorderTraverseIterative(testTree);
-testTree.searchIterative(testTree, 6);
+//testTree.searchIterative(testTree, 6);
+//testTree.treeMinimum(testTree);
+testTree.successor(testTree);
