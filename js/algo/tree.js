@@ -30,8 +30,34 @@ window.tree = window.tree || {};
         var out = '';
         if(root != null) {
             out += inorderTraverse(root.left);
-            out += root.data + " ";
+            out += root.data + ' ';
             out += inorderTraverse(root.right);
+        }
+        return out;
+    }
+
+    // Inorder traversal using stack
+    var inorderTraverseIterative = function(root) {
+        var stack = [];
+        var curr = root;
+        var out = '';
+
+        while(curr != null) {
+            stack.push(curr);
+            curr = curr.left;
+        }
+
+        while(stack.length !== 0) {
+            curr = stack.pop();
+            out += curr.data + " ";
+
+            if(curr.right != null) {
+                curr = curr.right;
+                while(curr != null) {
+                    stack.push(curr);
+                    curr = curr.left;
+                }
+            }
         }
         return out;
     }
@@ -70,6 +96,7 @@ window.tree = window.tree || {};
 
     BST.prototype.getTestTree = getTestTree;
     BST.prototype.inorderTraverse = inorderTraverse;
+    BST.prototype.inorderTraverseIterative = inorderTraverseIterative;
 
 }(window.tree))
 
@@ -77,3 +104,4 @@ window.tree = window.tree || {};
 var bst = new window.tree.BST();
 var testTree = bst.getTestTree();
 bst.inorderTraverse(testTree);
+bst.inorderTraverseIterative(testTree);
