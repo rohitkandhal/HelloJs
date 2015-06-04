@@ -17,7 +17,8 @@
 
 ###Data Structures
 - Binary Tree [code](js/algo/tree.js)
- 1. Inorder traversal [code](js/algo/tree.js#29)
+ 1. Inorder traversal - recursive [code](js/algo/tree.js#29)
+ 2. Inorder traversal - iterative [code](js/algo/tree.js#40)
   
 ###Questions
 1. Run length encoding [[code](js/algo/questions.js#L7)]
