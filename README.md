@@ -5,9 +5,9 @@
 3. For Function constructor and it's methods. [[functions.js](js/functions.js)]
 4. For String related questions. [[stringbasics.js](js/stringbasics.js)]
 
-###Algorithms implementation
+###Algorithms
 
-- Sorting
+- Sorting [[code](js/algo/sorting.js)]
  1. Insertion sort [[sorting.js](js/algo/sorting.js#L7)]
  2. Merge sort [[sorting.js](js/algo/sorting.js#L26)]
  3. Heap sort  
@@ -16,7 +16,7 @@
  3.3 Is an array a Heap [[code](js/algo/sorting.js#L126)]  
 
 ###Data Structures
-- Binary Tree [code](js/algo/tree.js)
+- Binary Tree [[code](js/algo/tree.js)]
  1. Inorder traversal - recursive [code](js/algo/tree.js#29)
  2. Inorder traversal - iterative [code](js/algo/tree.js#40)
  3. Search - iterative
