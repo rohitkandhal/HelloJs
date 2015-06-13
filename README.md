@@ -25,6 +25,7 @@
 ###Questions
 1. Run length encoding [[code](js/algo/questions.js#L7)]
 2. Find two numbers which sum to a target number [[code](js/algo/questions.js#L33)]
+3. Longest common subsequence problem using **Dynamic Programming**
 
 ###Credits
 1. Effective Javascript
