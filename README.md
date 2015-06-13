@@ -1,9 +1,9 @@
 ##Hello JS  
 
-1. For Objects, Classes and Prototypes. [[classbasics.js](js/classbasics.js)]
-2. For Arrays and Dictionaries. [[arrays.js](js/arrays.js)]
-3. For Function constructor and it's methods. [[functions.js](js/functions.js)]
-4. For String related questions. [[stringbasics.js](js/stringbasics.js)]
+1. Objects, Classes and Prototypes. [[classbasics.js](js/classbasics.js)]
+2. Arrays and Dictionaries. [[arrays.js](js/arrays.js)]
+3. Function constructor and it's methods. [[functions.js](js/functions.js)]
+4. String manipulations. [[stringbasics.js](js/stringbasics.js)]
 
 ###Algorithms
 
@@ -17,8 +17,8 @@
 
 ###Data Structures
 - Binary Tree [[code](js/algo/tree.js)]
- 1. Inorder traversal - recursive [code](js/algo/tree.js#29)
- 2. Inorder traversal - iterative [code](js/algo/tree.js#40)
+ 1. Inorder traversal - recursive
+ 2. Inorder traversal - iterative
  3. Search - iterative
  4. Successor - iterative
   
@@ -26,7 +26,8 @@
 1. Run length encoding [[code](js/algo/questions.js#L7)]
 2. Find two numbers which sum to a target number [[code](js/algo/questions.js#L33)]
 
-
 ###Credits
 1. Effective Javascript
-2. [toptal](www.toptal.com)
+2. Introduction to Algorithms
+3. Javascript - the good parts
+4. [toptal](www.toptal.com)
