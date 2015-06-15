@@ -7,7 +7,12 @@ window.greedy = window.greedy || {};
     // Activity selection problem using greedy approach. p415 Cormen
     ns.taskSelector = taskSelector;
 
-    // Tasks: [{start, end}, {start,end}]
+    // Approach: 
+    // 1. Assume that all tasks are sorted by increasing end times
+    // 2. Select first activity.
+    // 3. Select next activity whose start time is > end time of first activity
+    // Hypothesis: Greedily select those activities which leave shared resource available
+    // for longest duration
     function taskSelector(tasks) {
         var selected = [], 
         i, curr;
