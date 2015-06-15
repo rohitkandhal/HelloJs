@@ -1,5 +1,6 @@
 // ARRAYS and DICTIONARIES
 
+
 // 1.1 Sparse Arrays (arrays with holes)
 var a1 = new Array(3);
 
@@ -42,11 +43,7 @@ Object.prototype.count = function() {
     return count;
 }
 
-for(var i in dict2){
-    console.log(i + ": " + dict2[i]);
-}
-
-dict2.count();  // 3 though we've only 2 enteries
+dict2.count();  // 3 though we've only 2 enteries. 1 for count
 
 // 2.2 Never add properties to Object.prototype, otherwise for..in loop wont work
 
