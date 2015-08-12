@@ -1,3 +1,12 @@
+<!-- 
+Build a grid of randomly selected X and 0 character with size provided in URL parameters
+
+Usage: 
+    /gridapp.html?height=20&width=10
+
+Set height and width using url params. Default: 10 x 10
+-->
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,29 +21,30 @@
 </head>
 <body>
     <div id="grid"></div>
-    <button id="flipButton">Flip</button>
+    <button id="flipButton">Flip content</button>
+    <p>Change size by url parameters: <strong>/gridapp.html?height=20&width=15</strong></p>
 </body>
 
 <script type="text/javascript">
 
-    // Approach: a) Create div for each row and add each character in a row as a 
-    // span element.
-    // <div> 
-    //      <span> X </span> <span> 0 </span> <span> X </span>
-    // </div>
-    // Pros: Quick access to individual dom element and efficient content manipulation (e.g. flipping or deleting)
-    // b) We could have done something like
-    //  <div>
-    //      X 0 X
-    //  </div>  but with this approach direct access to each character is not available
-    // c) In both approach, we're accessing DOM extensively which isn't very efficient. 
-    // If that's a major concern we can formulate complete grid as a string with pre-formatted text
-    // and put in a pre element
-    //  <div>
-    //      <pre>
-    //      -- pre formatted grid string --
-    //      </pre>
-    //  </div>
+// Approach: a) Create div for each row and add each character in a row as a 
+// span element.
+// <div> 
+//      <span> X </span> <span> 0 </span> <span> X </span>
+// </div>
+// Pros: Quick access to individual dom element and efficient content manipulation (e.g. flipping or deleting)
+// b) We could have done something like
+//  <div>
+//      X 0 X
+//  </div>  but with this approach direct access to each character is not available
+// c) In both approach, we're accessing DOM extensively which isn't very efficient. 
+// If that's a major concern we can formulate complete grid as a string with pre-formatted text
+// and put in a pre element
+//  <div>
+//      <pre>
+//      -- pre formatted grid string --
+//      </pre>
+//  </div>
 
 window.app = window.app || {};
 
@@ -79,6 +89,10 @@ window.app = window.app || {};
     function buildGridInternal(width, height) {
         var rowNo;
 
+        // default grid size: 10 x 10
+        width = width || 10;
+        height = height || 10;
+        
         if(Number.isInteger(width) && Number.isInteger(height)) {
             for(rowNo = 0; rowNo < height; rowNo += 1) {
                 // Add each row to grid
