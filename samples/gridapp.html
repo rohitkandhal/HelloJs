@@ -5,6 +5,9 @@ Usage:
     /gridapp.html?height=20&width=10
 
 Set height and width using url params. Default: 10 x 10
+
+Requirement:
+    Use only HTML, CSS, JavaScript
 -->
 
 <!DOCTYPE html>
@@ -17,12 +20,17 @@ Set height and width using url params. Default: 10 x 10
             display:inline-block;
             width:20px;
         }
+        #grid {
+            padding: 10px;
+        }
+
     </style>
 </head>
 <body>
-    <div id="grid"></div>
     <button id="flipButton">Flip content</button>
-    <p>Change size by url parameters: <strong>/gridapp.html?height=20&width=15</strong></p>
+    <button id="reloadButton">Reload page</button>
+    <div id="grid"></div>
+    <p>Change size by url params: <strong>/gridapp.html?height=20&width=15</strong></p>
 </body>
 
 <script type="text/javascript">
@@ -55,14 +63,22 @@ window.app = window.app || {};
         $flipButton,
         gridElementId = 'grid',
         flipButtonId = 'flipButton',
+        reloadButtonId = 'reloadButton',
+        widthParamName = 'width',
+        heightParamName = 'height',
         allCharElementsArray;
 
     function init() {
         $grid = document.getElementById(gridElementId);
         $flipButton = document.getElementById(flipButtonId);
-        
+        $reloadButton = document.getElementById(reloadButtonId);
+
         if($flipButton) {
             $flipButton.onclick = flipAllChars;    
+        }
+
+        if($reloadButton) {
+            $reloadButton.onclick = reloadPage;
         }
         
         buildGrid();
@@ -75,9 +91,7 @@ window.app = window.app || {};
     
     function buildGrid() {
         // Get height and width from URL params
-        var widthParamName = 'width',
-            heightParamName = 'height',
-            queryString;
+        var queryString;
 
         queryString = getUrlParams();
         width = parseInt(queryString[widthParamName]);
@@ -186,6 +200,23 @@ window.app = window.app || {};
         return result;
     }
 
+    function reloadPage() {
+        // Hard reload page with random height and width
+        var newHeight,
+            newWidth,
+            maxRange = 40,
+            newQueryString;
+
+        newHeight = getRandomInteger(10, maxRange);
+        newWidth = getRandomInteger(5, maxRange);
+
+        newQueryString = '?' + widthParamName + '=' + newWidth + '&' + heightParamName + '=' + newHeight;
+
+        location.search = newQueryString;
+
+        // parameter true for hard reload page
+        //location.reload(true);
+    }
 
     init();    // run app
 
