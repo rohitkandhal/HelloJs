@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <style>
+        span {
+            display:inline-block;
+            width:20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="grid"></div>
+    <button id="flipButton">Flip</button>
+</body>
+
+<script type="text/javascript">
+
+    // Approach: a) Create div for each row and add each character in a row as a 
+    // span element.
+    // <div> 
+    //      <span> X </span> <span> 0 </span> <span> X </span>
+    // </div>
+    // Pros: Quick access to individual dom element and efficient content manipulation (e.g. flipping or deleting)
+    // b) We could have done something like
+    //  <div>
+    //      X 0 X
+    //  </div>  but with this approach direct access to each character is not available
+    // c) In both approach, we're accessing DOM extensively which isn't very efficient. 
+    // If that's a major concern we can formulate complete grid as a string with pre-formatted text
+    // and put in a pre element
+    //  <div>
+    //      <pre>
+    //      -- pre formatted grid string --
+    //      </pre>
+    //  </div>
+
+window.app = window.app || {};
+
+(function(app) {
+    app.buildGrid = buildGrid;
+
+    var $grid,
+        $flipButton,
+        gridElementId = 'grid',
+        flipButtonId = 'flipButton',
+        allCharElementsArray;
+
+    function init() {
+        $grid = document.getElementById(gridElementId);
+        $flipButton = document.getElementById(flipButtonId);
+        
+        if($flipButton) {
+            $flipButton.onclick = flipAllChars;    
+        }
+        
+        buildGrid();
+
+        // Store reference of all char elements for flipping content later
+        var elemCollection = document.getElementsByTagName('span');
+        // Convert object collection to array
+        allCharElementsArray = Array.prototype.slice.call(elemCollection, 0);  // [].slice(0,end)
+    }
+    
+    function buildGrid() {
+        // Get height and width from URL params
+        var widthParamName = 'width',
+            heightParamName = 'height',
+            queryString;
+
+        queryString = getUrlParams();
+        width = parseInt(queryString[widthParamName]);
+        height = parseInt(queryString[heightParamName]);
+
+        buildGridInternal(width, height);
+    }
+
+    function buildGridInternal(width, height) {
+        var rowNo;
+
+        if(Number.isInteger(width) && Number.isInteger(height)) {
+            for(rowNo = 0; rowNo < height; rowNo += 1) {
+                // Add each row to grid
+                $grid.appendChild(buildRow(width));
+            }
+        }
+    }
+
+    function buildRow(width) {
+        var i,
+            $row;
+
+        if(Number.isInteger(width)) {
+            $row = createHtmlElement('div');
+
+            for(i = 0; i < width; i += 1) {
+                $row.appendChild(createHtmlElement('span', getRandomCharacter()));
+            }    
+        } else {
+            $row = createHtmlElement('div', 'Error: incorrect row size.');
+        }
+        
+        return $row;
+    }
+
+    function getRandomCharacter() {
+        var result = '0';
+
+        if(getRandomInteger(0, 1) === 1) {
+            result = 'X';
+        }
+        return result;
+    }
+
+    function getRandomInteger(min, max) {
+        // return a random int between min and max (included)
+        // Opportunity to make it closure, then we won't need to pass max, min on every call
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    function createHtmlElement(elemType, elemText) {
+        var elem = document.createElement(elemType);
+
+        if(elemText) {
+            elem.innerHTML = elemText;
+        }
+        return elem;
+    }
+
+    function getUrlParams() {
+        // Credits: http://stackoverflow.com/a/3855394/351708
+        var i, 
+            len,
+            keyValue,
+            queryParams = {};
+
+        (function(params) {
+            if(Array.isArray(params)) {
+                for(i = 0, len = params.length; i < len; i += 1) {
+                    keyValue = params[i].split('=', 2); // limit split to 2 substring 'Key', 'Value'
+
+                    if(keyValue.length === 1) {
+                        queryParams[keyValue[0]] = "";
+                    } else {
+                        queryParams[keyValue[0]] = decodeURIComponent(keyValue[1].replace(/\+/g, " "));
+                        // regex replaces '+' with ' '
+                    }
+                }
+            }
+        }(window.location.search.substr(1).split('&')));    
+        // location.search string is "?key1=value1&key2=value2"
+
+        return queryParams;
+    }
+
+    function flipAllChars() {
+        allCharElementsArray.forEach(function(htmlElement) {
+            htmlElement.innerHTML = flipChar(htmlElement.innerHTML);
+        });
+    }
+
+    function flipChar(inp) {
+        // Flips 'X' -> '0' and '0' -> 'X'
+        var result = inp;
+
+        if(inp === 'X') {
+            result = '0';
+        } else if(inp === '0') {
+            result = 'X';
+        }
+        return result;
+    }
+
+
+    init();    // run app
+
+}(window.app));
+</script>
+</html>
