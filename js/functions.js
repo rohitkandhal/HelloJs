@@ -61,3 +61,34 @@ foo();
 
 //     origConsoleLog.apply(null,newArgs);
 // }
+
+
+// Currying
+function curry (fn) {
+    // curry expects a function as its arguments
+    var arity = fn.length;  // number of arguments
+
+    return (function resolver() {
+        // resolves whether to return a new function or call actual function
+        var memory = Array.prototype.slice.call(arguments); 
+        // just creating a deep copy of arguments object
+
+        return function() {
+            var local = memory.slice();
+            Array.prototype.push.apply(local, arguments);
+
+            next = local.length >= arity ? fn : resolver;
+            return next.apply(null, local);
+        };
+    }());
+}
+
+function volume(l, w, h) {
+    return l * w * h;
+}
+
+var curried = curry(volume);
+
+var length = curried(2);
+console.log('Volume: ', length(3)(4));  // 24
+console.log('Volume: ', curried(2)(3)(4));  // 24
