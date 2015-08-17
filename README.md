@@ -1,9 +1,10 @@
 ##Hello JS  
 
-1. Objects, Classes and Prototypes. [[classbasics.js](js/classbasics.js)]
-2. Arrays and Dictionaries. [[arrays.js](js/arrays.js)]
-3. Function constructor and it's methods. [[functions.js](js/functions.js)]
-4. String manipulations. [[stringbasics.js](js/stringbasics.js)]
+ 1. [**Sample Grid app**](https://rawgit.com/rohitkandhal/HelloJs/master/samples/gridapp.html) for my coding style.
+ 2. Objects, Classes and Prototypes. [[classbasics.js](js/classbasics.js)]
+ 3. Arrays and Dictionaries. [[arrays.js](js/arrays.js)]
+ 4. Function constructor and it's methods. [[functions.js](js/functions.js)]
+ 5. String manipulations. [[stringbasics.js](js/stringbasics.js)]
 
 ###Algorithms
 
