@@ -1,5 +1,4 @@
-// 1. Linked list implementation
-
+// Linked list implementation
 window.ds = window.ds || {};
 
 (function(ns) {
@@ -55,11 +54,10 @@ window.ds = window.ds || {};
     }
     
     function printList(head) {
-        var curr = head
-          , 
+        var curr, 
         out = [];
         
-        curr = curr || this.head;
+        curr = head || this.head;
         while (curr) {
             out.push(curr.data);
             curr = curr.next;
