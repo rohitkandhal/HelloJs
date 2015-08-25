@@ -16,6 +16,11 @@ function isOdd(n)
    return isNumber(n) && (Math.abs(n) % 2 == 1);
 }
 
+function decimalToHex(n) {
+	// Converts 255 to 'FF'
+	var hexStr = '0123456789ABCDEF';
+	return hexStr.substr((n >> 4) & 0x0F, 1) + hexStr.substr(n & 0x0F, 1);
+}
 function isArray(inp) {
 	return Array.isArray(inp);
 }
