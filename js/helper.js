@@ -21,6 +21,7 @@ function decimalToHex(n) {
 	var hexStr = '0123456789ABCDEF';
 	return hexStr.substr((n >> 4) & 0x0F, 1) + hexStr.substr(n & 0x0F, 1);
 }
+
 function isArray(inp) {
 	return Array.isArray(inp);
 }
@@ -32,6 +33,19 @@ function toInt(n) {
 
 function trim(str) {
 	return str.replace(/^\s+|\s+$/g, "");
+}
+
+function generateNumbers(n) {
+	// Generate array like [0, 1, 2, 3,]
+	return Array.apply(null, Array(n)).map(function(x,i) {return i})
+}
+
+function unique(arr) {
+	// Removes duplicates from an array using hash table
+    var seen = {};
+    return arr.filter(function (item) {
+        return seen.hasOwnProperty(item) ? false : (seen[item] = true);
+    });
 }
 
 // Converts array like object (e.g. argument) to array
