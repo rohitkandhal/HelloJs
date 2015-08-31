@@ -5,13 +5,13 @@ function CSVReader() {
     // use comma as delimiter
 }
 
-CSVReader.prototype.read = function(inp) {
+CSVReader.prototype.read = function (inp) {
     var lines = inp.trim().split(/\n/);
-    
-    return lines.map(function(line) {
+
+    return lines.map(function (line) {
         return line.split(this.regex);
     }
-    , this);
+        , this);
     // for this.regex we need to specifically send reference of CSVReader
     // Also we can save this as var self = this and use self.regex
 }
@@ -56,12 +56,12 @@ function factorial2(n) {
 }
 
 // factorial with memoization
-var factorial3 = (function() {
+var factorial3 = (function () {
     var mem = [1, 1];
-    
-    var fact = function(n) {
+
+    var fact = function (n) {
         var result = mem[n];
-        
+
         if (typeof result !== 'number') {
             result = n * fact(n - 1);
             mem[n] = result;
@@ -70,7 +70,7 @@ var factorial3 = (function() {
     }
     return fact;
 }
-());
+    ());
 
 // 3. Fibonacci
 function fib(n) {
@@ -81,22 +81,22 @@ function fib(n) {
 }
 
 // with memoization
-var fibonacci = (function() {
+var fibonacci = (function () {
     var mem = [0, 1];
-    
-    var fib = function(n) {
+
+    var fib = function (n) {
         var result = mem[n];
-        
+
         if (typeof result !== 'number') {
             result = fib(n - 1) + fib(n - 2);
             mem[n] = result;
         }
-        
+
         return result;
     }
     return fib;
 }
-());
+    ());
 
 // 4. Calculate Square Root of a number
 function sqrt1(n) {
@@ -104,7 +104,7 @@ function sqrt1(n) {
     if (n <= 1) {
         return n;
     }
-    
+
     for (var i = 1; i <= 1 + Math.floor(n / 2); i += 1) {
         if (i * i === n) {
             return i;
@@ -116,26 +116,26 @@ function sqrt1(n) {
 
 // Using binary search approach
 function sqrt2(n) {
-    var i = 0, 
-    low, mid, high, square;
-    
+    var i = 0,
+        low, mid, high, square;
+
     if (n < 0) {
         throw 'Wrong input';
     }
-    
+
     if (n < 2) {
         return n;
     }
-    
+
     low = 0;
     high = n;
-    
+
     while (high > low + 1) {
         // Make sure difference is more than one otherwise 
         // It would be an infinite loop
         mid = low + Math.floor((high - low) / 2);
         square = mid * mid;
-        
+
         if (square === n) {
             return mid;
         } else if (square < n) {
@@ -147,21 +147,21 @@ function sqrt2(n) {
     return low;
 }
 
-var arr = Array.apply(null , Array(101)).map(function(x, i) {
+var arr = Array.apply(null, Array(101)).map(function (x, i) {
     return i;
 }
-);
-var squares = arr.map(function(x) {
+    );
+var squares = arr.map(function (x) {
     return sqrt2(x);
 }
-);
+    );
 
 function unique(arr) {
     var seen = {};
-    return arr.filter(function(item) {
+    return arr.filter(function (item) {
         return seen.hasOwnProperty(item) ? false : (seen[item] = true);
     }
-    );
+        );
 }
 
 unique(squares);

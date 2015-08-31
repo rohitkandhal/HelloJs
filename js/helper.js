@@ -1,19 +1,16 @@
 // ----------------------- Even Odd check ----------
-function isNumber(n)
-{
-   // return n == parseFloat(n);	//Wrong it won't capture "23@23" string
-   // return typeof n === 'number'	// Also good way without creating new variable
-   return !!Number(n);
+function isNumber(n) {
+	// return n == parseFloat(n);	//Wrong it won't capture "23@23" string
+	// return typeof n === 'number'	// Also good way without creating new variable
+	return !!Number(n);
 }
 
-function isEven(n) 
-{
-   return isNumber(n) && (n % 2 == 0);
+function isEven(n) {
+	return isNumber(n) && (n % 2 == 0);
 }
 
-function isOdd(n)
-{
-   return isNumber(n) && (Math.abs(n) % 2 == 1);
+function isOdd(n) {
+	return isNumber(n) && (Math.abs(n) % 2 == 1);
 }
 
 function decimalToHex(n) {
@@ -37,7 +34,7 @@ function trim(str) {
 
 function generateNumbers(n) {
 	// Generate array like [0, 1, 2, 3,]
-	return Array.apply(null, Array(n)).map(function(x,i) {return i})
+	return Array.apply(null, Array(n)).map(function (x, i) { return i })
 }
 
 function unique(arr) {
@@ -61,8 +58,8 @@ function toArray(arrayLikeObj) {
 // 5. Number NaN
 // 6. false boolean, not 'false' string
 function isFalsy(inp) {
-	if(inp === 0 || inp === '' || inp === undefined 
-	||	inp === null || inp === false || inp === NaN) {
+	if (inp === 0 || inp === '' || inp === undefined
+		|| inp === null || inp === false || inp === NaN) {
 		return true;
 	}
 	return false;
@@ -71,36 +68,36 @@ function isFalsy(inp) {
 // Event addition, removing utility
 var EventUtil = {
 
-	addHandler: function(element, type, handler){
-		if(element.addEventListener){
+	addHandler: function (element, type, handler) {
+		if (element.addEventListener) {
 			element.addEventListener(type, handler, false);
-		} else if(element.addHandler){
+		} else if (element.addHandler) {
 			element.addHandler("on" + type, handler);
 		} else {
-			element["on"+ type] = handler;
+			element["on" + type] = handler;
 		}
 	},
 
-	getEvent: function(event){
+	getEvent: function (event) {
 		return event ? event : window.event;
 	},
 
-	getTarget: function(event){
+	getTarget: function (event) {
 		return event.target || event.srcElement;
 	},
 
-	preventDefault: function(event){
-		if(event.preventDefault){
+	preventDefault: function (event) {
+		if (event.preventDefault) {
 			event.preventDefault();
 		} else {
 			event.returnValue = false;
 		}
 	},
 
-	removeHandler: function(element, type, handler){
-		if(element.removeEventListener){
+	removeHandler: function (element, type, handler) {
+		if (element.removeEventListener) {
 			element.removeEventListener(type, handler, false);
-		} else if(element.removeHandler){
+		} else if (element.removeHandler) {
 			element.removeHandler("on" + type, handler);
 		} else {
 			element["on" + type] = handler;
@@ -110,7 +107,7 @@ var EventUtil = {
 	// NOTE: Cancel bubble for stopping propagation and return value for cancelling event altogether.
 	
 	stopPropagation: function (event) {
-		if(event.stopPropagation){
+		if (event.stopPropagation) {
 			event.stopPropagation();
 		} else {
 			event.cancelBubble = true;
