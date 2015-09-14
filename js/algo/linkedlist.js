@@ -18,6 +18,7 @@ window.ds = window.ds || {};
     LinkedList.prototype.append = append;
     LinkedList.prototype.insert = insert;
     LinkedList.prototype.print = printList;
+    LinkedList.prototype.deleteNodes = deleteNodes;
     
     // Function implementations
     
@@ -65,6 +66,25 @@ window.ds = window.ds || {};
         
         return out.join(' -> ');
     }
+    
+    function deleteNodes(val) {
+        // delete all nodes whose value is 'val'
+        var curr = this.head;
+        
+        while (curr !== undefined && curr.data === val) {
+            curr = curr.next;
+        }
+        
+        this.head = curr;
+        
+        while (curr && curr.next) {
+            if (curr.next.data === val) {
+                curr.next = curr.next.next;
+            } else {
+                curr = curr.next;
+            }
+        }
+    }
 }
 (window.ds));
 
@@ -74,6 +94,31 @@ var testArrEmpty = [];
 var testArrSame = [5, 5, 5];
 
 var l1 = new window.ds.LinkedList();
-l1.append(testArr);
-l1.append(testArrSame);
-l1.print();
+// l1.append(testArr);
+// l1.append(testArrSame);
+// l1.print();
+
+
+var inp1 = [1], out1 = [1];
+var inp2 = [5], out2 = [];
+var inp3 = [5, 5], out3 = [];
+var inp4 = [5, 5, 1], out4 = [1];
+var inp5 = [5, 5, 1, 5], out5 = [1];
+var inp6 = [1, 5, 2, 5, 5, 5, 6], out6 = [1, 2, 6];
+
+function verify(testInput) {
+    var out = [];
+
+    l1 = new window.ds.LinkedList();
+    l1.append(testInput);
+    
+    out.push('Input: ', l1.print());
+    l1.deleteNodes(5);
+    out.push('Output: ', l1.print());
+    
+    return out.join(' ');
+}
+
+verify(inp1);
+verify(inp2);
+verify(inp3);

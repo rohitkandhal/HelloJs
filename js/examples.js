@@ -223,3 +223,30 @@ function printPrimes(n) {
 }
 
 // c) Integer Factorization: Prime factors of a number
+
+
+// FizzBuzz test
+function fizzBuzz() {
+    var i = 1, max = 20, out = [];
+
+    // 1 to 100 (inclusive)
+    // 3 - Fizz
+    // 5 - Buzz
+    // 3, 5 - FizzBuzz
+    for (i = 1; i <= max; i += 1) {
+        if(i % 3 === 0 && i % 5 === 0) {
+            out.push('FizzBuzz');
+        }
+        else if (i % 5 === 0) {
+            out.push('Buzz');
+        }
+        else if (i % 3 === 0) {
+            out.push('Fizz');
+        }
+        else {
+            out.push(i);
+        }
+    }
+
+    return out.join(' ');
+}
