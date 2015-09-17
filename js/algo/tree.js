@@ -14,14 +14,14 @@
 
 window.ds = window.ds || {};
 
-(function (ns) {
-
+(function(ns) {
+    
     ns.BST = BST;
-
+    
     function BST(data, left, right, parent) {
-        this.root = null;
+        this.root = null ;
     }
-
+    
     function Node(data, left, right, parent) {
         this.data = data;
         this.left = left;
@@ -32,47 +32,49 @@ window.ds = window.ds || {};
     // Binary Insertion
     function insert(data) {
         var newNode = new Node(data);
-
-        if (this.root === null) {
+        
+        if (this.root === null ) {
             this.root = newNode;
         } else {
             insertNode(this.root, newNode);
         }
     }
-
+    
     function insertNode(root, newNode) {
         // Assumes all keys in binary tree are different
         if (newNode.data < root.data) {
-            if (root.left == null) {
+            if (root.left == null ) {
                 // == null checks for both null and undefined
                 root.left = newNode;
+                newNode.parent = root;
             } else {
                 insertNode(root.left, newNode);
             }
-        }
+        } 
         else {
-            if (root.right == null) {
+            if (root.right == null ) {
                 root.right = newNode;
+                newNode.parent = root;
             } else {
                 insertNode(root.right, newNode);
             }
         }
     }
     
-    // 1 a) Inorder traversal - recursion
+    // a) Inorder traversal - recursion
     function inorderRecursive1(root) {
         var out = [];
-
+        
         function addToOutput(value) {
             out.push(value);
         }
         inorderRecursiveInternal(root, addToOutput);
-
+        
         return out.join(' ');
     }
-
+    
     function inorderRecursiveInternal(node, visitCallback) {
-        if (node != null) {
+        if (node != null ) {
             inorderRecursiveInternal(node.left, visitCallback);
             visitCallback(node.data);
             inorderRecursiveInternal(node.right, visitCallback);
@@ -80,10 +82,10 @@ window.ds = window.ds || {};
     }
     ;
     
-    // 1 b) Inorder traversal - recursion
+    // b) Inorder traversal - recursion
     function inorderRecursive2(root) {
         var out = '';
-        if (root != null) {
+        if (root != null ) {
             out += inorderRecursive2(root.left);
             out += root.data + ' ';
             out += inorderRecursive2(root.right);
@@ -96,19 +98,19 @@ window.ds = window.ds || {};
         var stack = [];
         var curr = root;
         var out = [];
-
-        while (curr != null) {
+        
+        while (curr != null ) {
             stack.push(curr);
             curr = curr.left;
         }
-
+        
         while (stack.length !== 0) {
             curr = stack.pop();
             out.push(curr.data);
-
-            if (curr.right != null) {
+            
+            if (curr.right != null ) {
                 curr = curr.right;
-                while (curr != null) {
+                while (curr != null ) {
                     stack.push(curr);
                     curr = curr.left;
                 }
@@ -119,34 +121,52 @@ window.ds = window.ds || {};
     
     // Binary Search iterative
     function searchIterative(root, key) {
-        while (root != null && root.data !== key) {
+        while (root != null  && root.data !== key) {
             if (root.data > key) {
                 root = root.left;
-            }
+            } 
             else {
                 root = root.right;
             }
         }
-        return root;
+        return root || "Not found";
     }
-
+    
+    // Successor of current node
     function successor(node) {
-        if (node != null) {
+        if (node != null ) {
             var temp;
             
-            // If there is a right child, get leftmost node in right subtree
-            if (node.right != null) {
+            // 1. If there is a right child, get leftmost node in right subtree
+            if (node.right != null ) {
                 return minNode(node.right);
             }
             
-            // Search till a parent is found whose left subtree has curr node
+            // 2. Search till a parent is found whose left subtree has curr node
             temp = node.parent;
-            while (temp != null && temp.right === node) {
+            while (temp != null  && temp.right === node) {
                 node = temp;
                 temp = temp.parent;
             }
             return temp;
         }
+    }
+    
+    // Checks if a tree is a binary search tree
+    function isBinarySearchTree(root) {
+        // Assumes: all keys are different. 
+        // In order traversal should have keys in increasing order
+        // Convert string array to int array
+        var inorderArr = inorderRecursive1(root).split(' ').map(function(x) {
+            return parseInt(x, 10);
+        });
+        
+        for (var i = 1; i < inorderArr.length; i++) {
+            if (inorderArr[i - 1] > inorderArr[i]) {
+                return false
+            }
+        }
+        return true;
     }
     
     // Minimum node
@@ -156,60 +176,34 @@ window.ds = window.ds || {};
         }
         return node;
     }
-
-    var getTestTree = function () {
-        var n2, n3, n4, n6, n7, n9, n13, n15, n17, n18, n20;
-
-        n2 = new BST(2);
-        n3 = new BST(3);
-        n4 = new BST(4);
-        n6 = new BST(6);
-        n7 = new BST(7);
-        n9 = new BST(9);
-        n13 = new BST(13);
-        n15 = new BST(15);
-        n17 = new BST(17);
-        n18 = new BST(18);
-        n20 = new BST(20);
-
-        n2.parent = n4.parent = n3;
-        n9.parent = n13;
-        n13.parent = n7;
-        n3.parent = n7.parent = n6;
-        n17.parent = n20.parent = n18;
-        n6.parent = n18.parent = n15;
-
-        n15.left = n6;
-        n15.right = n18;
-        n6.left = n3;
-        n6.right = n7;
-        n3.left = n2;
-        n3.right = n4;
-        n7.right = n13;
-        n13.left = n9;
-        n18.left = n17;
-        n18.right = n20;
-
-        return n15;
-    }
-
-    BST.prototype.getTestTree = getTestTree;
+    
     BST.prototype.inorderRecursive1 = inorderRecursive1;
     BST.prototype.inorderRecursive2 = inorderRecursive2;
     BST.prototype.inorderIterative = inorderIterative;
     BST.prototype.insert = insert;
+    BST.prototype.isBinarySearchTree = isBinarySearchTree;
     BST.prototype.searchIterative = searchIterative;
     BST.prototype.successor = successor;
     BST.prototype.minNode = minNode;
 }
-    (window.ds));
+(window.ds));
 
 function getBSTTest1() {
     var bst = new window.ds.BST();
     var values = [15, 6, 18, 3, 7, 17, 20, 2, 4, 13, 9];
-
-    values.forEach(function (x) {
+    
+    values.forEach(function(x) {
         bst.insert(x);
-    });
-    return bst;
+    }
+    );
+    return bst.root;
 }
+
+// test
+var bst = new window.ds.BST();
+var testRoot = getBSTTest1();
+
+bst.inorderIterative(testRoot)
+// "2 3 4 6 7 9 13 15 17 18 20"
+bst.inorderRecursive1(testRoot)
+bst.inorderRecursive2(testRoot)
