@@ -169,6 +169,23 @@ window.ds = window.ds || {};
         return true;
     }
     
+    function isBinarySearchTree2(root) {
+        
+        return isBSTInteral(root, -Infinity, Infinity);
+        
+        function isBSTInteral(node, min, max) {
+            if(node) {
+                if(node.data >= min && node.data <= max){
+                    return isBSTInteral(node.left, min, node.data) && isBSTInteral(node.right, node.data, max);
+                } else {
+                    return false;
+                }
+            }
+            return true;
+        }
+    }
+    
+    
     // Minimum node
     function minNode(node) {
         while (node && node.left) {
@@ -182,6 +199,7 @@ window.ds = window.ds || {};
     BST.prototype.inorderIterative = inorderIterative;
     BST.prototype.insert = insert;
     BST.prototype.isBinarySearchTree = isBinarySearchTree;
+    BST.prototype.isBinarySearchTree2 = isBinarySearchTree2;
     BST.prototype.searchIterative = searchIterative;
     BST.prototype.successor = successor;
     BST.prototype.minNode = minNode;
@@ -203,7 +221,7 @@ function getBSTTest1() {
 var bst = new window.ds.BST();
 var testRoot = getBSTTest1();
 
-bst.inorderIterative(testRoot)
 // "2 3 4 6 7 9 13 15 17 18 20"
+bst.inorderIterative(testRoot) 
 bst.inorderRecursive1(testRoot)
 bst.inorderRecursive2(testRoot)
