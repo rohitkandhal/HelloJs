@@ -6,7 +6,7 @@
 
 window.ds = window.ds || {};
 
-(function(ns) {
+(function (ns) {
 	ns.Graph = Graph;
 	
 	// Assuming there are no duplicates
@@ -16,15 +16,18 @@ window.ds = window.ds || {};
 	function Graph() {
 		this.vertices = {};
 	}
-	
+
 	function Vertex(data) {
 		this.data = data;
 		this.color = 'White';	// White (unvisited), Grey (visiting), Black (visited)
 		this.distance = Infinity;	// Start with all separate
 		this.parent = undefined;
 		this.edges = [];
+
+		this.stime = Infinity;	// dfs: First discovered time stamp
+		this.ftime = Infinity;	// dfs: Finish discovering time stamp
 	}
-	
+
 	Graph.prototype.addVertex = addVertex;
 	Graph.prototype.addEdge = addEdge;
 	Graph.prototype.bfs = bfs;
@@ -32,7 +35,7 @@ window.ds = window.ds || {};
 	Graph.prototype.toString = toString;
 	Graph.prototype.printShortestPath = printShortestPath;
 	Graph.prototype.visitCallBack = visitCallBack;
-	
+
 	function addVertex(data) {
 		var v = new Vertex(data)
 		this.vertices[data] = v;
@@ -41,54 +44,54 @@ window.ds = window.ds || {};
 	function getVertex(name) {
 		return this.vertices[name];
 	}
-	
+
 	function addEdge(from, to) {
 		this.vertices[from].edges.push(to);
 		this.vertices[to].edges.push(from);
 	}
 	
 	// Breadth First Search traversal (using Queue)
-	function bfs(source, visitCallBack){
+	// Predecessor subgraph is a tree
+	function bfs(source, visitCallBack) {
 		var curr,
-		neighbors,
-		queue = [];
-		
-		Object.keys(this.vertices).forEach(function(k) {
-			this.vertices[k].color = 'White';	
+			neighbors,
+			queue = [];
+
+		Object.keys(this.vertices).forEach(function (k) {
+			this.vertices[k].color = 'White';
 		}, this);
 
 		source.distance = 0;
 		source.parent = undefined;
 		queue.push(source);
-		
-		while(queue.length > 0) {
+
+		while (queue.length > 0) {
 			curr = queue.shift();
 			neighbors = curr.edges;
-			
+
 			visitCallBack(curr);
 			curr.color = 'Grey';
 
-			neighbors.forEach(function(n) {
+			neighbors.forEach(function (n) {
 				// Need to maintain three color state
-				if(this.vertices[n].color === 'White'){
+				if (this.vertices[n].color === 'White') {
 					this.vertices[n].color = 'Grey';	// Visiting node. Required to avoid duplicate visit.
 					this.vertices[n].distance = curr.distance + 1;
 					this.vertices[n].parent = curr;
-					
-					queue.push(this.vertices[n]);	
+
+					queue.push(this.vertices[n]);
 				}
 			}, this);
 
 			curr.color = 'Black';
 		}
 	}
-	
+
 	function printShortestPath(source, target, out) {
 		out = out || '';
 		
 		// Make sure BFS is called before calling Print path from source vertex
-		
-		if(source === target) {
+		if (source === target) {
 			out += source.data;
 		} else if (target.parent === undefined) {
 			out += 'No Path';
@@ -100,10 +103,58 @@ window.ds = window.ds || {};
 	}
 
 	// Depth first search traversal (using Stack)
-	function dfs(source, visitCallBack) {
+	// DFS doesn't need a source or start vertex.
+	// Predecessor subgraph is a forest.
+	function dfs(visitCallBack) {
+		var time = 0;
+
+		// Clear color of all nodes
+		Object.keys(this.vertices).forEach(function (vName) {
+			var v = this.vertices[vName];
+
+			v.color = 'White';
+			v.parent = undefined;
+		}, this);
+
+		// DFS visit from all white vertices
+		Object.keys(this.vertices).forEach(function (vName) {
+			var v = this.vertices[vName];
+
+			if (v.color === 'White') {
+				dfsInternal(v, visitCallBack);
+			}
+
+		}, this)
 		
+		// Internal dfs function
+		function dfsInternal(curr, visitCallBack) {
+			var neighborName, neighbor;
+			time = time + 1;
+			
+			curr.stime = time;
+			curr.color = 'Grey';
+			
+			if(visitCallBack) { 
+				visitCallBack(curr);
+			}
+			
+			for(var i = 0; i < curr.edges.length; i += 1) {
+				neighborName = curr.edges[i];
+				neighbor = this.vertices[neighborName];
+				
+				if(neighbor.color === 'White') {
+					neighbor.parent = curr;
+					
+					dfsInternal(neighbor, visitCallBack);
+				}
+			}
+			
+			curr.color = 'Black';
+			time = time + 1;
+			curr.ftime = time;
+		}
 	}
-	
+
 	function visitCallBack(vertex) {
 		console.log(vertex.data);
 	}
@@ -112,9 +163,9 @@ window.ds = window.ds || {};
 		var out = '', v;
 		
 		// Object.keys(this.vertices) - returns array like object
-		Object.keys(this.vertices).forEach(function(curr) {
+		Object.keys(this.vertices).forEach(function (curr) {
 			v = this.vertices[curr];
-			
+
 			out += v.data + ' -> ';
 			out += v.edges.join(', ');
 			out += '\n';
@@ -124,14 +175,14 @@ window.ds = window.ds || {};
 		
 		return out;
 	}
-}(window.ds));
+} (window.ds));
 
-// test
+// BFS test
 var graph = new window.ds.Graph();
 var myVertices = ['R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y'];
-myVertices.forEach(function(v) {
-		graph.addVertex.call(graph, v);
-		});
+myVertices.forEach(function (v) {
+	graph.addVertex.call(graph, v);
+});
 	
 //  R - S   T - U
 //	|	| / | / |
