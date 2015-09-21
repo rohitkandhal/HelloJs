@@ -30,6 +30,7 @@ window.ds = window.ds || {};
 	Graph.prototype.bfs = bfs;
 	Graph.prototype.getVertex = getVertex;
 	Graph.prototype.toString = toString;
+	Graph.prototype.printShortestPath = printShortestPath;
 	Graph.prototype.visitCallBack = visitCallBack;
 	
 	function addVertex(data) {
@@ -81,6 +82,22 @@ window.ds = window.ds || {};
 			curr.color = 'Black';
 		}
 	}
+	
+	function printShortestPath(source, target, out) {
+		out = out || '';
+		
+		// Make sure BFS is called before calling Print path from source vertex
+		
+		if(source === target) {
+			out += source.data;
+		} else if (target.parent === undefined) {
+			out += 'No Path';
+		} else {
+			out += printShortestPath(source, target.parent, out);
+			out += target.data;
+		}
+		return out;
+	}
 
 	// Depth first search traversal (using Stack)
 	function dfs(source, visitCallBack) {
@@ -116,6 +133,9 @@ myVertices.forEach(function(v) {
 		graph.addVertex.call(graph, v);
 		});
 	
+//  R - S   T - U
+//	|	| / | / |
+//  V   W - X - Y
 graph.addEdge('R', 'V');
 graph.addEdge('R', 'S');
 graph.addEdge('S', 'W');
@@ -128,4 +148,9 @@ graph.addEdge('X', 'Y');
 graph.addEdge('U', 'Y');
 
 // console.log(graph.toString());
+// Run BFS traversal
 graph.bfs(graph.getVertex('R'), graph.visitCallBack);
+
+// Shortest path calculation
+graph.bfs(graph.getVertex('Y'), graph.visitCallBack);
+graph.printShortestPath(graph.getVertex('Y'), graph.getVertex('R')); // Y > X > W > S > R
