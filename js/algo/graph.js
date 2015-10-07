@@ -9,23 +9,24 @@ window.ds = window.ds || {};
 (function (ns) {
 	ns.Graph = Graph;
 	
-	// Assuming there are no duplicates
+	// Structure: Assuming there are no duplicates
 	// HashTable
 	// <vertex name> : <data, visited, distance, edges: [vertex name, vertex name]>
 	// <vertex name> : <data, color, distance, edges: [vertex name, vertex name]>
 	function Graph() {
-		this.vertices = {};
+		this.vertices = {};	
 	}
 
 	function Vertex(data) {
 		this.data = data;
+		this.edges = [];
+		
 		this.color = 'White';	// White (unvisited), Grey (visiting), Black (visited)
 		this.distance = Infinity;	// Start with all separate
 		this.parent = undefined;
-		this.edges = [];
-
-		this.stime = Infinity;	// dfs: First discovered time stamp
-		this.ftime = Infinity;	// dfs: Finish discovering time stamp
+		
+		this.start = Infinity;	// dfs: First discovered time stamp
+		this.finish = Infinity;	// dfs: Finish discovering time stamp
 	}
 
 	Graph.prototype.addVertex = addVertex;
@@ -108,22 +109,21 @@ window.ds = window.ds || {};
 	function dfs(visitCallBack) {
 		var time = 0;
 
-		// Clear color of all nodes
-		Object.keys(this.vertices).forEach(function (vName) {
-			var v = this.vertices[vName];
+		// Iterate over all nodes and clear color
+		Object.keys(this.vertices).forEach(function (name) {
+			var node = this.vertices[name];
 
-			v.color = 'White';
-			v.parent = undefined;
+			node.color = 'White';
+			node.parent = undefined;
 		}, this);
 
 		// DFS visit from all white vertices
-		Object.keys(this.vertices).forEach(function (vName) {
-			var v = this.vertices[vName];
+		Object.keys(this.vertices).forEach(function (name) {
+			var node = this.vertices[name];
 
-			if (v.color === 'White') {
-				dfsInternal(v, visitCallBack);
+			if (node.color === 'White') {
+				dfsInternal(node, visitCallBack);
 			}
-
 		}, this)
 		
 		// Internal dfs function
@@ -131,7 +131,7 @@ window.ds = window.ds || {};
 			var neighborName, neighbor;
 			time = time + 1;
 			
-			curr.stime = time;
+			curr.start = time;
 			curr.color = 'Grey';
 			
 			if(visitCallBack) { 
@@ -151,7 +151,7 @@ window.ds = window.ds || {};
 			
 			curr.color = 'Black';
 			time = time + 1;
-			curr.ftime = time;
+			curr.finish = time;
 		}
 	}
 
