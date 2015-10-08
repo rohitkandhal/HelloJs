@@ -1,26 +1,23 @@
 // 1. Run length encoding
-// wwwwoorrd -> w5o2r2d1
+// aabbccddd -> a2b2c2d3
 
 var testStr1 = 'wwwwoorrd';
 var testArr1 = [2, 7, 11, 15];
 
 function runLengthEncode(inp) {
-    var result = [], i = 0, j, count, currChar;
+    var result = [], i = 0, count, currChar;
 
     if (inp) {
         while (i < inp.length) {
             currChar = inp[i];
-
-            j = i + 1;
             count = 1;
-
-            while (j < inp.length && inp[j] === currChar) {
+            i += 1;
+            
+            // Check for duplicates further
+            while (i < inp.length && inp[i] === currChar) {
                 count++;
-                j++;
             }
-
-            i = j;
-
+            
             result.push(currChar, count);
         }
     }
