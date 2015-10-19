@@ -182,17 +182,17 @@ unique(squares);
 // a < m ⇒ b > m
 // In all 3 cases, min(a,b) ≤ m. Hence if we search till m, we are bound to find at least one factor of n, which is enough to show that n is not prime.
 function isPrime(n) {
-    if(n === 2) {
+    if (n === 2) {
         return true;
     }
-
-    if(n % 2 === 0) {
+    
+    if (n % 2 === 0) {
         return false;
     }
-
+    
     // Check only odd numbers
-    for(var i = 3; i <= Math.sqrt(n); i += 2) {
-        if(n % i === 0) {
+    for (var i = 3; i <= Math.sqrt(n); i += 2) {
+        if (n % i === 0) {
             return false;
         }
     }
@@ -211,7 +211,7 @@ function printPrimes(n) {
     for (p = 2; p <= n; p += 1) {
         if (arr[p]) {
             output.push(p);
-
+            
             // Mark all multiples like 2p, 3p, 4p till j <= n
             for (j = 2 * p; j <= n; j += p) {
                 arr[j] = false;
@@ -227,27 +227,29 @@ function printPrimes(n) {
 
 // FizzBuzz test
 function fizzBuzz() {
-    var i = 1, max = 20, out = [];
-
+    var i = 1
+      , max = 20
+      , out = [];
+    
     // 1 to 100 (inclusive)
     // 3 - Fizz
     // 5 - Buzz
     // 3, 5 - FizzBuzz
     for (i = 1; i <= max; i += 1) {
-        if(i % 3 === 0 && i % 5 === 0) {
+        if (i % 3 === 0 && i % 5 === 0) {
             out.push('FizzBuzz');
-        }
+        } 
         else if (i % 5 === 0) {
             out.push('Buzz');
-        }
+        } 
         else if (i % 3 === 0) {
             out.push('Fizz');
-        }
+        } 
         else {
             out.push(i);
         }
     }
-
+    
     return out.join(' ');
 }
 
@@ -259,7 +261,7 @@ var testArr1 = [2, 7, 11, 15];
 
 function runLengthEncode(inp) {
     var result = [], i = 0, count, currChar;
-
+    
     if (inp) {
         while (i < inp.length) {
             currChar = inp[i];
@@ -282,16 +284,19 @@ function runLengthEncode(inp) {
 // Find first two numbers which sum to target
 function findTargetSum(inp, targetSum) {
     var hashMap = [], i = 0, first, second, remaining;
-
+    
     if (Array.isArray(inp) && targetSum) {
         while (i < inp.length) {
             remaining = targetSum - inp[i];
             console.log(remaining, hashMap);
-
+            
             // Can't use if(a) because hashMap[remaining] can have 0 value
             if (hashMap[remaining] !== undefined) {
-                return { first: hashMap[remaining], second: i };
-            }
+                return {
+                    first: hashMap[remaining],
+                    second: i
+                };
+            } 
             else if (!hashMap[inp[i]]) {
                 hashMap[inp[i]] = i;
             }
