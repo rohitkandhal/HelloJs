@@ -99,16 +99,22 @@ var l1 = new window.ds.LinkedList();
 // l1.print();
 
 
-var inp1 = [1], out1 = [1];
-var inp2 = [5], out2 = [];
-var inp3 = [5, 5], out3 = [];
-var inp4 = [5, 5, 1], out4 = [1];
-var inp5 = [5, 5, 1, 5], out5 = [1];
-var inp6 = [1, 5, 2, 5, 5, 5, 6], out6 = [1, 2, 6];
+var inp1 = [1]
+  , out1 = [1];
+var inp2 = [5]
+  , out2 = [];
+var inp3 = [5, 5]
+  , out3 = [];
+var inp4 = [5, 5, 1]
+  , out4 = [1];
+var inp5 = [5, 5, 1, 5]
+  , out5 = [1];
+var inp6 = [1, 5, 2, 5, 5, 5, 6]
+  , out6 = [1, 2, 6];
 
 function verify(testInput) {
     var out = [];
-
+    
     l1 = new window.ds.LinkedList();
     l1.append(testInput);
     
@@ -122,3 +128,48 @@ function verify(testInput) {
 verify(inp1);
 verify(inp2);
 verify(inp3);
+
+
+
+
+function LL() {
+    this.head;
+    
+    this.addNode = function addNode(data) {
+        var newNode = new Node(data);
+        var curr = this.head;
+        
+        if (curr === undefined) {
+            this.head = newNode;
+        } else {
+            while (curr && curr.next) {
+                curr = curr.next;
+            }
+            curr.next = newNode;
+        }
+        return this.head;
+    }
+    
+    this.delete = function(val) {
+        var curr = this.head;
+        
+        while (curr && curr.data === val) {
+            curr = curr.next;
+        }
+        this.head = curr;
+        
+        while (curr && curr.next) {
+            
+            if (curr.next.data === val) {
+                curr.next = curr.next.next;
+            } else {
+                curr = curr.next;
+            }
+        }
+    }
+}
+
+function Node(data) {
+    this.data = data;
+    this.next = undefined;
+}

@@ -28,12 +28,14 @@ window.ds = window.ds || {};
 		this.ftime = Infinity;	// dfs: Finish discovering time stamp
 	}
 
+	// Public interface
+	Graph.prototype.bfs = bfs;
+	Graph.prototype.dfs = dfs;
+	Graph.prototype.printShortestPath = printShortestPath;
 	Graph.prototype.addVertex = addVertex;
 	Graph.prototype.addEdge = addEdge;
-	Graph.prototype.bfs = bfs;
 	Graph.prototype.getVertex = getVertex;
 	Graph.prototype.toString = toString;
-	Graph.prototype.printShortestPath = printShortestPath;
 	Graph.prototype.visitCallBack = visitCallBack;
 
 	function addVertex(data) {
@@ -130,25 +132,25 @@ window.ds = window.ds || {};
 		function dfsInternal(curr, visitCallBack) {
 			var neighborName, neighbor;
 			time = time + 1;
-			
+
 			curr.stime = time;
 			curr.color = 'Grey';
-			
-			if(visitCallBack) { 
+
+			if (visitCallBack) {
 				visitCallBack(curr);
 			}
-			
-			for(var i = 0; i < curr.edges.length; i += 1) {
+
+			for (var i = 0; i < curr.edges.length; i += 1) {
 				neighborName = curr.edges[i];
 				neighbor = this.vertices[neighborName];
-				
-				if(neighbor.color === 'White') {
+
+				if (neighbor.color === 'White') {
 					neighbor.parent = curr;
-					
+
 					dfsInternal(neighbor, visitCallBack);
 				}
 			}
-			
+
 			curr.color = 'Black';
 			time = time + 1;
 			curr.ftime = time;

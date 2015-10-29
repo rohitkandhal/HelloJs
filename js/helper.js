@@ -1,4 +1,3 @@
-// ----------------------- Even Odd check ----------
 function isNumber(n) {
 	// return n == parseFloat(n);	//Wrong it won't capture "23@23" string
 	// return typeof n === 'number'	// Also good way without creating new variable
@@ -13,14 +12,20 @@ function isOdd(n) {
 	return isNumber(n) && (Math.abs(n) % 2 == 1);
 }
 
-function decimalToHex(n) {
-	// Converts 255 to 'FF'
-	var hexStr = '0123456789ABCDEF';
-	return hexStr.substr((n >> 4) & 0x0F, 1) + hexStr.substr(n & 0x0F, 1);
+function isAsciiString(inp) {
+	var stringRegex = /^[a-zA-Z]+$/;
+	return stringRegex.test(inp);
 }
 
-function isArray(inp) {
-	return Array.isArray(inp);
+function decimalToHex(n) {
+	// Converts 255 to 'FF'
+	return n.toString(16);
+	//var hexStr = '0123456789ABCDEF';
+	//return hexStr.substr((n >> 4) & 0x0F, 1) + hexStr.substr(n & 0x0F, 1);
+}
+
+function hexToDecimal(hexStr) {
+	return parseInt(hexStr, 16);
 }
 
 // 23.99 -> 23
@@ -51,7 +56,7 @@ function toArray(arrayLikeObj) {
 }
 
 // There are only 6 falsy values in Javascript
-// 1. Number 0, not '0' string
+// 1. Number 0, not '0'
 // 2. Empty string ''
 // 3. Undefined
 // 4. null
@@ -78,22 +83,6 @@ var EventUtil = {
 		}
 	},
 
-	getEvent: function (event) {
-		return event ? event : window.event;
-	},
-
-	getTarget: function (event) {
-		return event.target || event.srcElement;
-	},
-
-	preventDefault: function (event) {
-		if (event.preventDefault) {
-			event.preventDefault();
-		} else {
-			event.returnValue = false;
-		}
-	},
-
 	removeHandler: function (element, type, handler) {
 		if (element.removeEventListener) {
 			element.removeEventListener(type, handler, false);
@@ -105,7 +94,6 @@ var EventUtil = {
 	},
 
 	// NOTE: Cancel bubble for stopping propagation and return value for cancelling event altogether.
-	
 	stopPropagation: function (event) {
 		if (event.stopPropagation) {
 			event.stopPropagation();

@@ -13,6 +13,9 @@ var a = b = c = {}; // a, b, c refer to same empty object
 c.foo = "rohit";
 b.foo; // "rohit"  even though we did not add "foo" property to object b
 
+(function() { var a = b = 1; })();
+// variable a is defined in function scope but b is added to global scope
+
 // 1.1 Prototype should contain immutable data e.g. methods. Stateful data should be on instance level
 function Person(name, age, lastName) {
     // new agnostic constructor

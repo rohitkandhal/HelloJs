@@ -1,7 +1,0 @@
-// foreach
-
-// map
-
-// filter
-
-// any
