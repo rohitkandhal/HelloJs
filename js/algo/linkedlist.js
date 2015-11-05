@@ -1,9 +1,9 @@
 // Linked list implementation
 window.ds = window.ds || {};
 
-(function(ns) {
+(function (ns) {
     ns.LinkedList = LinkedList;
-    
+
     function LinkedList() {
         this.head;
     }
@@ -34,14 +34,14 @@ window.ds = window.ds || {};
             // });
         }
     }
-    
+
     function insert(data) {
-        var curr, 
-        newNode;
-        
+        var curr,
+            newNode;
+
         curr = this.head;
         newNode = new Node(data);
-        
+
         if (!this.head) {
             this.head = newNode;
         } else {
@@ -50,33 +50,33 @@ window.ds = window.ds || {};
             }
             curr.next = newNode;
         }
-        
+
         return this.head;
     }
-    
+
     function printList(head) {
-        var curr, 
-        out = [];
-        
+        var curr,
+            out = [];
+
         curr = head || this.head;
         while (curr) {
             out.push(curr.data);
             curr = curr.next;
         }
-        
+
         return out.join(' -> ');
     }
-    
+
     function deleteNodes(val) {
         // delete all nodes whose value is 'val'
         var curr = this.head;
-        
+
         while (curr !== undefined && curr.data === val) {
             curr = curr.next;
         }
-        
+
         this.head = curr;
-        
+
         while (curr && curr.next) {
             if (curr.next.data === val) {
                 curr.next = curr.next.next;
@@ -86,7 +86,7 @@ window.ds = window.ds || {};
         }
     }
 }
-(window.ds));
+    (window.ds));
 
 // testing linked list
 var testArr = [5, 2, 4, 6, 1, 3];
@@ -100,28 +100,28 @@ var l1 = new window.ds.LinkedList();
 
 
 var inp1 = [1]
-  , out1 = [1];
+    , out1 = [1];
 var inp2 = [5]
-  , out2 = [];
+    , out2 = [];
 var inp3 = [5, 5]
-  , out3 = [];
+    , out3 = [];
 var inp4 = [5, 5, 1]
-  , out4 = [1];
+    , out4 = [1];
 var inp5 = [5, 5, 1, 5]
-  , out5 = [1];
+    , out5 = [1];
 var inp6 = [1, 5, 2, 5, 5, 5, 6]
-  , out6 = [1, 2, 6];
+    , out6 = [1, 2, 6];
 
 function verify(testInput) {
     var out = [];
-    
+
     l1 = new window.ds.LinkedList();
     l1.append(testInput);
-    
+
     out.push('Input: ', l1.print());
     l1.deleteNodes(5);
     out.push('Output: ', l1.print());
-    
+
     return out.join(' ');
 }
 
@@ -130,46 +130,3 @@ verify(inp2);
 verify(inp3);
 
 
-
-
-function LL() {
-    this.head;
-    
-    this.addNode = function addNode(data) {
-        var newNode = new Node(data);
-        var curr = this.head;
-        
-        if (curr === undefined) {
-            this.head = newNode;
-        } else {
-            while (curr && curr.next) {
-                curr = curr.next;
-            }
-            curr.next = newNode;
-        }
-        return this.head;
-    }
-    
-    this.delete = function(val) {
-        var curr = this.head;
-        
-        while (curr && curr.data === val) {
-            curr = curr.next;
-        }
-        this.head = curr;
-        
-        while (curr && curr.next) {
-            
-            if (curr.next.data === val) {
-                curr.next = curr.next.next;
-            } else {
-                curr = curr.next;
-            }
-        }
-    }
-}
-
-function Node(data) {
-    this.data = data;
-    this.next = undefined;
-}

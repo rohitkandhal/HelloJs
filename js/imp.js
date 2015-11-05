@@ -2,6 +2,8 @@
 // Question 1. Given an integer array, output all pairs that sum up to a specific value k.
 // [1, 1, 2, 3, 4]
 
+// Approach: Sort the array. Keep two pointers start and end. Traverse array from 
+// both ends and checking for desired sum
 function pairSum1(arr, k) {
     var start, end, v1, v2;
 
@@ -71,7 +73,6 @@ function matrixSum(matrix, topLeft, bottomRight){
 //Given an array of integers (positive and negative) find the largest continuous sum.
 function largestContinuousSum(arr) {
     var currSum = 0, maxSum = 0, i;
-    var tStart = 0, startPos, endPos;
     
     for(i = 0; i < arr.length; i += 1) {
         currSum += arr[i];

@@ -90,7 +90,6 @@ window.ds = window.ds || {};
             inorderRecursiveInternal(node.right, visitCallback);
         }
     }
-    ;
     
     // b) Inorder traversal - recursion
     function inorderRecursive2(root) {
@@ -132,7 +131,7 @@ window.ds = window.ds || {};
     // Binary Search iterative
     function searchIterative(root, key) {
         while (root != null && root.data !== key) {
-            if (root.data > key) {
+            if (key < root.data) {
                 root = root.left;
             }
             else {
@@ -168,7 +167,7 @@ window.ds = window.ds || {};
         // In order traversal should have keys in increasing order
         // Convert string array to int array
         var inorderArr = inorderRecursive1(root).split(' ').map(function (x) {
-            return parseInt(x, 10);
+            return parseInt(x, 10); // ParseInt extracts integer from a string
         });
 
         for (var i = 1; i < inorderArr.length; i++) {

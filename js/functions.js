@@ -4,16 +4,13 @@
 function Product(name, price){
     this.name = name;
     this.price = price;
-
-    return this;
 }
 
 function Food1(args) {
     Product.apply(this, args);  // args is expected to be an array [name, price]
     this.category = "Food";
 }
-var f1 = new Food1(["Chicken", 100]);   // note that it's an array
-
+var f1 = new Food1(["Chicken", 100]);
 
 // 2. Call
 function Food2(name, price) {
@@ -29,7 +26,7 @@ console.log(f1, f2);
 // 3. Function scope
 // Rule: JS have FUNCTION scope, not block scopes. Parameters and variables defined in a 
 // function are not visible outside of the function and a variable defined inside a 
-// funciton is visible everywhere within the function
+// function is visible everywhere within the function
 
 var foo = function () {
     var a = 1, b = 2;
@@ -38,13 +35,11 @@ var foo = function () {
         var b = 50, c = 60;
 
         a = 100;
-        log("bar: ", a, b, c);
+        console.log("bar: ", a, b, c);
     };
-
     // a = 1, b = 2, c = undefined
-
-    bar();
     
+    bar();
     // a = 100, b = 2, c = undefined
 };
 
@@ -62,7 +57,6 @@ foo();
 //     origConsoleLog.apply(null,newArgs);
 // }
 
-
 // Currying
 function curry (fn) {
     // curry expects a function as its arguments
@@ -77,7 +71,7 @@ function curry (fn) {
             var local = memory.slice();
             Array.prototype.push.apply(local, arguments);
 
-            next = local.length >= arity ? fn : resolver;
+            var next = local.length >= arity ? fn : resolver;
             return next.apply(null, local);
         };
     }());
@@ -92,3 +86,22 @@ var curried = curry(volume);
 var length = curried(2);
 console.log('Volume: ', length(3)(4));  // 24
 console.log('Volume: ', curried(2)(3)(4));  // 24
+
+// using appl, bind, call 
+function Person() {
+    this.name = 'default';
+    this.getName = function () {
+        console.log(this.name);
+        return this.name;
+    }
+}
+
+var p = new Person();
+var obj = {
+    name : 'Rohit'
+}
+
+var newFunction = p.getName.bind(obj);  // Bind creates a new function with different context
+newFunction();   // 'rohit'
+p.getName.call(obj);
+p.getName.apply(obj);
