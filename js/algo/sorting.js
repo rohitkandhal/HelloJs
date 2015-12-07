@@ -26,10 +26,11 @@ window.sort = window.sort || {};
 
     // 2. Merge Sort
     function mergeSort(inp, start, end) {
-        var arr1 = arr2 = arr3 = [];
-
+        var arr1, arr2, arr3;
+        arr1 = arr2 = arr3 = [];
+        
         // Base case 
-        // 1. When there is only one element in an array
+        // When there is only one element in an array
         if (start === end && start < inp.length) {
             arr3[0] = inp[start];
         } 
@@ -50,13 +51,14 @@ window.sort = window.sort || {};
         arr1 = arr1 || [];
         arr2 = arr2 || [];
         
-        var n1 = arr1.length, 
+        var n1, n2, i, j, k;
+        n1 = arr1.length; 
         n2 = arr2.length;
-        var i = j = k = 0;
+        i = j = k = 0;
         
         var result = [];
         while (k < (n1 + n2)) {
-            if ((j >= n2 && i <= n1) || arr1[i] <= arr2[j]) {
+            if (arr1[i] <= arr2[j] || (j >= n2 && i <= n1)) {
                 result[k] = arr1[i];
                 i++;
             } else {
@@ -163,7 +165,7 @@ var testHeapValid = [16, 14, 10, 8, 7, 9, 3, 2, 4, 1];
 var testHeap2 = [23, 17, 14, 6, 13, 10, 1, 5, 7, 12];
 
 //window.sort.insertionSort(testArr);
-//window.sort.mergeSort(testArr, 0, testArr.length);
-window.sort.heapSort(testArr);
+window.sort.mergeSort(testArr, 0, testArr.length);
+//window.sort.heapSort(testArr);
 //window.sort.isHeap(testHeapValid);
 
