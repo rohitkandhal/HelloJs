@@ -30,13 +30,12 @@ function hexToDecimal(hexStr) {
 
 // 23.99 -> 23
 function toInt(n) {
-	return Math.floor(n);
+	return Math[n < 0 ? "ceil" : "floor"](n);
 	// n.toFixed(0); convert number to 23 but in string not integer
 }
 
 function trim(str) {
-	//return str.replace(/^\s+|\s+$/g, "");
-	return str.replace(/^\s+/, "").replace(/\s+$/, "");
+	return str.replace(/^\s+|\s+$/g, "");
 }
 
 function generateNumbers(n) {
