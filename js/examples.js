@@ -300,3 +300,33 @@ function findTargetSum(inp, targetSum) {
 
 findTargetSum(testArr1, 9);
 
+///////////////////
+// Convert &lt;&quot;&gt; -> <">
+var testHTML = "&lt;&quot;&gt;";
+function htmlDecoder(inp) {
+    var entity = {
+        lt: "<",
+        quot: "\"",
+        gt: ">"
+    }
+
+    function replacer(match, p1) {
+        var r = entity[p1];
+
+        return typeof r === "string" ? r : p1;
+    }
+
+    var regexToMatch = /&([^&;]+);/g;
+
+    return inp.replace(regexToMatch, replacer);
+}
+
+///////////////////
+// String replace method working
+var a = "abc12345#$*%";
+
+function replacer(match, p1, p2, p3, offset, string) {
+    console.log(JSON.stringify(arguments));
+    return [p1, p2, p3].join(' - ');
+}
+a.replace(/([^\d]*)(\d*)([^\w]*)/, replacer);
